@@ -4,8 +4,9 @@
   "description": "Price Checker",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "build": "webpack --config webpack.dev.js",
+    "build:prod": "webpack --config webpack.prod.js",
+    "start": "webpack-dev-server --config webpack.dev.js"
   },
   "author": "Oscar",
   "license": "ISC",
