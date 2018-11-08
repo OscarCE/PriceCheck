@@ -10,6 +10,9 @@
   "author": "Oscar",
   "license": "ISC",
   "devDependencies": {
+    "@types/react": "^16.4.18",
+    "@types/react-dom": "^16.0.9",
+    "@types/react-router-dom": "^4.3.1",
     "css-loader": "^1.0.1",
     "html-webpack-plugin": "^3.2.0",
     "source-map-loader": "^0.2.4",
@@ -28,6 +31,7 @@
   "dependencies": {
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
-    "react-promise": "^2.0.3"
+    "react-promise": "^2.0.3",
+    "react-router-dom": "^4.3.1"
   }
 }
