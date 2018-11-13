@@ -1,10 +1,10 @@
 const path = require('path');
 const express = require('express');
-// const webpack = require('webpack');
+const webpack = require('webpack');
 const https = require('https');
 const axios = require('axios');
-// const webpackConfig = require('./webpack.dev.js');
-// const compiler = webpack(webpackConfig);
+const webpackConfig = require('./webpack.dev.js');
+const compiler = webpack(webpackConfig);
 const fs = require('fs');
 const bodyParser = require('body-parser');
 const appPort = 3000;
@@ -76,18 +76,24 @@ app.all('/api/type2/*', (req, res) => {
     getColes(url).then(data => {
       res.setHeader('Content-Type', 'application/json');
       res.end(JSON.stringify(data));
-    })
+    }).catch((error) => {
+      console.log('Coles error.', error);
+    });
   } else if (req.method === 'POST') {
     axios.post(url, req.body)
       .then((response) => {
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(response.data));
+      }).catch((error) => {
+        console.log('POST error.', error);
       });
   } else if (req.method === 'GET') {
     axios.get(url)
       .then(response => {
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(response.data));
+      }).catch((error) => {
+        console.log('GET error.', error);
       });
   }
 });
@@ -95,14 +101,14 @@ app.all('/api/type2/*', (req, res) => {
 // -------------------------------------------------------------------------
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
-// app.use(
-//   require('webpack-dev-middleware')(compiler, {
-//     publicPath: webpackConfig.output.publicPath,
-//     writeToDisk: true,
-//     stats: { colors: true },
-//   })
-// );
-// app.use(require('webpack-hot-middleware')(compiler));
+app.use(
+  require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true,
+    stats: { colors: true },
+  })
+);
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist/index.html'), function (err) {

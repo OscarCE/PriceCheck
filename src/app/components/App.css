@@ -1,0 +1,51 @@
+html, body, #root {
+  height: 100%;
+}
+
+.ui-navbar {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
+.lightgray {
+  color: lightgray;
+}
+
+.no-match .note {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+.fill-flex {
+  flex: 1;
+}
+
+.store-w .logo {
+  color: white;
+  font-weight: bold;
+  background: green;
+  border-radius: 10px;
+  border: 1px solid green;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding: 1px 0px 0px 1px;
+  line-height: 16px;
+}
+
+.store-c .logo {
+  color: white;
+  font-weight: bold;
+  background: red;
+  border-radius: 10px;
+  border: 1px solid red;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  padding: 1px 0px 0px 3px;
+  line-height: 16px;
+}
+
+.card-icon .icon {
+  width: 75%;
+}
