@@ -4,19 +4,27 @@ import * as localForage from 'localforage';
 
 interface IState
 {
-  products: string[];
+  barcodes: string[];
 }
 class MyListPage extends React.Component<any, IState>
 {
   constructor(props)
   {
     super(props);
+
+    this.removeBarcode = this.removeBarcode.bind(this);
+    this.state = {
+      barcodes: [],
+    };
+    this.setGlobal({
+      removeBarcode: this.removeBarcode,
+    });
   }
 
   public render()
   {
     return (
-      <MyListArea barcodeList={this.global.barcodes} />
+      <MyListArea barcodeList={this.state.barcodes} />
     );
   }
 
@@ -27,12 +35,31 @@ class MyListPage extends React.Component<any, IState>
       // Load the barcode list from the local db to the global state.
       let bcs: string[] = await localForage.getItem('barcodes') as string[];
       bcs = bcs || [];
-      this.setGlobal({
+      this.setState({
         barcodes: bcs,
       });
     } catch (error)
     {
       alert('Error while loading the items.');
+    }
+  }
+  private removeBarcode = async (barcode: string) =>
+  {
+    try
+    {
+      // From the current barcode list, remove the selected item.
+      const bcs: string[] = await localForage.getItem('barcodes') as string[];
+      const newBcs = bcs.filter((bc) => bc !== barcode);
+
+      // Save the new list to the local db.
+      localForage.setItem('barcodes', newBcs);
+      this.setState({
+        barcodes: newBcs,
+      });
+    }
+    catch (error)
+    {
+      alert('Error while deleting the item.');
     }
   }
 }

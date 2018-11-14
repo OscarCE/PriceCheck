@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'reactn';
 import { Container } from 'reactstrap';
 import * as localForage from 'localforage';
 import ResultsArea from './ResultsArea';
@@ -19,11 +19,16 @@ class SearchPage extends React.Component<any, IState>
     super(props);
 
     this.handleSearch = this.handleSearch.bind(this);
+    this.addBarcode = this.addBarcode.bind(this);
     this.state = {
       searchTerm: '',
       searchResults: undefined,
       searching: false,
     };
+
+    this.setGlobal({
+      addBarcode: this.addBarcode,
+    });
   }
 
   public componentDidMount()
@@ -49,7 +54,7 @@ class SearchPage extends React.Component<any, IState>
     );
   }
 
-  private async handleSearch(event: React.SyntheticEvent)
+  private async handleSearch(event: any)
   {
     event.preventDefault();
 
@@ -87,6 +92,47 @@ class SearchPage extends React.Component<any, IState>
       this.setState({
         searching: false,
       });
+    }
+  }
+
+  private async addBarcode(newBarcode: string)
+  {
+    try
+    {
+      // Get all the items from the local db. If it is empty, assign an empty array.
+      let bcs: string[] = await localForage.getItem('barcodes') as string[];
+      bcs = bcs || [];
+
+      // Only add the item if it is not in the list already.
+      const repeated = bcs.filter((oldBarcode) => oldBarcode === newBarcode);
+      if (repeated.length === 0)
+      {
+        // Add it to the local db.
+        localForage.setItem('barcodes', bcs.concat(newBarcode));
+
+        // New array with added items marked as added.
+        const newResults = this.state.searchResults.map((item) =>
+        {
+          if (item.barcode === newBarcode)
+          {
+            item.added = true;
+          }
+          return item;
+        });
+
+        // Pass it to the state so it gets re-drawn.
+        this.setState({
+          searchResults: newResults,
+        });
+      }
+      else
+      {
+        alert(`Item already in list. [${newBarcode}]`);
+      }
+    }
+    catch (error)
+    {
+      alert('Error while adding the item.');
     }
   }
 }

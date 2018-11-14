@@ -16,7 +16,8 @@ localForage.config({
 
 // Initialize the global state.
 React.setGlobal({
-  barcodes: [],
+  addBarcode: undefined,
+  removeBarcode: undefined,
 });
 
 ReactDOM.render(

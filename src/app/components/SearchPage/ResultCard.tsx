@@ -2,6 +2,8 @@ import * as React from 'reactn';
 import { Card, CardBody, CardTitle, CardText, Button, CardImg } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
 import * as localForage from 'localforage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps
 {
@@ -10,31 +12,7 @@ interface IProps
 
 const ResultCard = ({ content }: IProps) =>
 {
-  const addToProducts = async (newBarcode: string) =>
-  {
-    try
-    {
-      // Get all the items from the local db. If it is empty, assign an empty array.
-      let bcs: string[] = await localForage.getItem('barcodes') as string[];
-      bcs = bcs || [];
-
-      // Only add the item if it is not in the list already.
-      const repeated = bcs.filter((oldBarcode) => oldBarcode === newBarcode);
-      if (repeated.length === 0)
-      {
-        // Add it to the local db.
-        localForage.setItem('barcodes', bcs.concat(newBarcode));
-      }
-      else
-      {
-        alert(`Item already in list. [${newBarcode}]`);
-      }
-    }
-    catch (error)
-    {
-      alert('Error while adding the item.');
-    }
-  };
+  const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
 
   return (
     <Card className="h-100">
@@ -68,11 +46,14 @@ const ResultCard = ({ content }: IProps) =>
       <Button
         color={content.added ? 'success' : 'secondary'}
         disabled={content.added}
-        className="mx-3 mb-3"
-        onClick={addToProducts.bind(this, content.barcode)}
+        className="mx-3 mb-3 btn-labeled"
+        onClick={addBarcode.bind(this, content.barcode)}
       >
+        <span className="btn-label">
+          <FontAwesomeIcon icon={faCheck} />
+        </span>
         {
-          content.added ? 'Added' : 'Add to my list'
+          content.added ? 'Added' : 'Add'
         }
       </Button>
     </Card>

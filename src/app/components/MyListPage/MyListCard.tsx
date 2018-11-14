@@ -2,6 +2,8 @@ import * as React from 'reactn';
 import { Card, CardBody, CardText, CardTitle, CardImg, Button } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
 import * as localForage from 'localforage';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps
 {
@@ -10,26 +12,7 @@ interface IProps
 
 const MyListCard = (props: IProps) =>
 {
-  const removeHandler = async (barcode: string) =>
-  {
-    try
-    {
-      // From the current barcode list, remove the selected item.
-      const bcs: string[] = await localForage.getItem('barcodes') as string[];
-      const newBcs = bcs.filter((bc) => bc !== barcode);
-
-      // Save the new list to the local db.
-      // Save it as well to the global state to trigger the update.
-      localForage.setItem('barcodes', newBcs);
-      React.setGlobal({
-        barcodes: newBcs,
-      });
-    }
-    catch (error)
-    {
-      alert('Error while deleting the item.');
-    }
-  };
+  const [removeBarcode, setRemoveBarcode] = React.useGlobal('removeBarcode');
 
   return (
     <Card className="h-100">
@@ -61,10 +44,13 @@ const MyListCard = (props: IProps) =>
         </CardText>
       </CardBody>
       <Button
-        color="secondary"
-        className="mx-3 mb-3"
-        onClick={removeHandler.bind(this, props.product.barcode)}
+        color="danger"
+        className="mx-3 mb-3 btn-labeled"
+        onClick={removeBarcode.bind(this, props.product.barcode)}
       >
+        <span className="btn-label">
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </span>
         Remove
       </Button>
     </Card>
