@@ -10,16 +10,17 @@ interface IProps
 
 const MyListCard = (props: IProps) =>
 {
-  // const [prods, setProds] = React.useGlobal('barcodes');
-
   const removeHandler = async (barcode: string) =>
   {
     try
     {
+      // From the current barcode list, remove the selected item.
       const bcs: string[] = await localForage.getItem('barcodes') as string[];
       const newBcs = bcs.filter((bc) => bc !== barcode);
+
+      // Save the new list to the local db.
+      // Save it as well to the global state to trigger the update.
       localForage.setItem('barcodes', newBcs);
-      // setProds(newBcs);
       React.setGlobal({
         barcodes: newBcs,
       });

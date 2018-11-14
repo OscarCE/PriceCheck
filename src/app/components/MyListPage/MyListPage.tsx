@@ -22,14 +22,17 @@ class MyListPage extends React.Component<any, IState>
 
   public async componentDidMount()
   {
-    try {
+    try
+    {
+      // Load the barcode list from the local db to the global state.
       let bcs: string[] = await localForage.getItem('barcodes') as string[];
       bcs = bcs || [];
       this.setGlobal({
         barcodes: bcs,
       });
-    } catch (error) {
-      alert('Error while loading My List items.');
+    } catch (error)
+    {
+      alert('Error while loading the items.');
     }
   }
 }

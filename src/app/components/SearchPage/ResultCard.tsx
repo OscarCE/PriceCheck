@@ -10,13 +10,11 @@ interface IProps
 
 const ResultCard = ({ content }: IProps) =>
 {
-  // const [prods, setProds] = React.useGlobal('barcodes');
-
   const addToProducts = async (newBarcode: string) =>
   {
     try
     {
-      // Get all the items from the DB, if it is empty, assign an empty array.
+      // Get all the items from the local db. If it is empty, assign an empty array.
       let bcs: string[] = await localForage.getItem('barcodes') as string[];
       bcs = bcs || [];
 
@@ -24,11 +22,8 @@ const ResultCard = ({ content }: IProps) =>
       const repeated = bcs.filter((oldBarcode) => oldBarcode === newBarcode);
       if (repeated.length === 0)
       {
+        // Add it to the local db.
         localForage.setItem('barcodes', bcs.concat(newBarcode));
-        // setProds(bcs.concat(newBarcode));
-        React.setGlobal({
-          barcodes: bcs.concat(newBarcode),
-        });
       }
       else
       {

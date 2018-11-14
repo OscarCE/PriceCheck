@@ -8,11 +8,13 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 declare let module: any;
 
+// Change the local db configuration.
 localForage.config({
   name: 'PriceCheck',
   storeName: 'PriceCheckDB',
 });
 
+// Initialize the global state.
 React.setGlobal({
   barcodes: [],
 });
