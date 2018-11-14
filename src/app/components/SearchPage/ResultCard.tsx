@@ -39,14 +39,14 @@ const ResultCard = ({ content }: IProps) =>
   return (
     <Card className="h-100">
       <CardBody>
-        <CardTitle>
+        <CardTitle className="card-product-title">
           {content.name}
         </CardTitle>
         <CardImg src={content.imageUrl} />
-        <CardText>
+        <CardText className="card-content">
           Content: {content.size}
         </CardText>
-        <CardText tag="div">
+        <CardText tag="div" className="card-price-list">
           {
             content.prices.map((price: IPrice) =>
             {
@@ -66,11 +66,14 @@ const ResultCard = ({ content }: IProps) =>
         </CardText>
       </CardBody>
       <Button
-        color="secondary"
-        className="align-self-end mx-3 mb-3"
+        color={content.added ? 'success' : 'secondary'}
+        disabled={content.added}
+        className="mx-3 mb-3"
         onClick={addToProducts.bind(this, content.barcode)}
       >
-        Add to my list
+        {
+          content.added ? 'Added' : 'Add to my list'
+        }
       </Button>
     </Card>
   );

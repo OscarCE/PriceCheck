@@ -4,6 +4,7 @@ export default interface ICard {
   imageUrl: string;
   size: string;
   prices: IPrice[];
+  added: boolean;
 }
 
 export interface IPrice {

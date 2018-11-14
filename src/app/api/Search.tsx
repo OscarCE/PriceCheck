@@ -71,6 +71,7 @@ export const combinaResultados = (resultados: ISearchResult[][]) =>
     unArray = diferentes;
 
     const tarjeta: ICard = {
+      added: false,
       barcode: primerItem.barcode,
       imageUrl: primerItem.image,
       name: primerItem.name,

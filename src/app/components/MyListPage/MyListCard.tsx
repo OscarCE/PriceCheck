@@ -34,14 +34,14 @@ const MyListCard = (props: IProps) =>
   return (
     <Card className="h-100">
       <CardBody>
-        <CardTitle>
+        <CardTitle className="card-product-title">
           {props.product && props.product.name}
         </CardTitle>
         <CardImg className="p-3" src={props.product && props.product.imageUrl} />
-        <CardText>
+        <CardText className="card-content">
           Content: {props.product && props.product.size}
         </CardText>
-        <CardText tag="div">
+        <CardText tag="div" className="card-price-list">
           {
             props.product.prices.map((price: IPrice) =>
             {

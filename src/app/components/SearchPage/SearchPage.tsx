@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Container } from 'reactstrap';
-
+import * as localForage from 'localforage';
 import ResultsArea from './ResultsArea';
 import ICard from '../../interfaces/ICard';
 import SearchFields from './SearchFields';
@@ -68,6 +68,13 @@ class SearchPage extends React.Component<any, IState>
     try
     {
       const resultados: ICard[] = await busqueda(term);
+
+      // Chack items already added to our list.
+      const bcs: string[] = await localForage.getItem('barcodes') as string[];
+      resultados.forEach((item: ICard) =>
+      {
+        item.added = bcs.find((bc) => item.barcode === bc) && true;
+      });
 
       this.setState({
         searchTerm: term,
