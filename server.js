@@ -78,6 +78,7 @@ app.all('/api/type2/*', (req, res) => {
       res.end(JSON.stringify(data));
     }).catch((error) => {
       console.log('Coles error.', error.message);
+      res.end(error.message);
     });
   } else if (req.method === 'POST') {
     axios.post(url, req.body)
@@ -86,6 +87,7 @@ app.all('/api/type2/*', (req, res) => {
         res.end(JSON.stringify(response.data));
       }).catch((error) => {
         console.log('POST error.', error.message);
+        res.end(error.message);
       });
   } else if (req.method === 'GET') {
     axios.get(url)
@@ -94,6 +96,7 @@ app.all('/api/type2/*', (req, res) => {
         res.end(JSON.stringify(response.data));
       }).catch((error) => {
         console.log('GET error.', error.message);
+        res.end(error.message);
       });
   }
 });
