@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from 'reactn';
 import MyListArea from './MyListArea';
 
 interface IState
@@ -15,7 +15,7 @@ class MyListPage extends React.Component<any, IState>
   public render()
   {
     return (
-      <MyListArea barcodeList={this.state.products} />
+      <MyListArea barcodeList={this.global.products} />
     );
   }
 }
