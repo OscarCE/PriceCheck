@@ -1,6 +1,7 @@
 import * as React from 'reactn';
 import { Card, CardBody, CardTitle, CardText, Button, CardImg } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
+import * as localForage from 'localforage';
 
 interface IProps
 {
@@ -9,18 +10,34 @@ interface IProps
 
 const ResultCard = ({ content }: IProps) =>
 {
-  const [prods, setProds] = React.useGlobal('products');
+  // const [prods, setProds] = React.useGlobal('barcodes');
 
-  const addToProducts = (barcode: string) =>
+  const addToProducts = async (newBarcode: string) =>
   {
-    const a = prods.filter((oldBarcode) => oldBarcode === barcode);
-    if (a.length === 0)
+    try
     {
-      setProds(prods.concat(barcode));
+      // Get all the items from the DB, if it is empty, assign an empty array.
+      let bcs: string[] = await localForage.getItem('barcodes') as string[];
+      bcs = bcs || [];
+
+      // Only add the item if it is not in the list already.
+      const repeated = bcs.filter((oldBarcode) => oldBarcode === newBarcode);
+      if (repeated.length === 0)
+      {
+        localForage.setItem('barcodes', bcs.concat(newBarcode));
+        // setProds(bcs.concat(newBarcode));
+        React.setGlobal({
+          barcodes: bcs.concat(newBarcode),
+        });
+      }
+      else
+      {
+        alert(`Item already in list. [${newBarcode}]`);
+      }
     }
-    else
+    catch (error)
     {
-      alert(`Product already in list. [${barcode}]`);
+      alert('Error while adding the item.');
     }
   };
 

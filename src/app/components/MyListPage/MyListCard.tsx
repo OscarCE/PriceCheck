@@ -1,6 +1,7 @@
-import * as React from 'react';
+import * as React from 'reactn';
 import { Card, CardBody, CardText, CardTitle, CardImg, Button } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
+import * as localForage from 'localforage';
 
 interface IProps
 {
@@ -9,9 +10,24 @@ interface IProps
 
 const MyListCard = (props: IProps) =>
 {
-  const removeHandler = (barcode: string) =>
+  // const [prods, setProds] = React.useGlobal('barcodes');
+
+  const removeHandler = async (barcode: string) =>
   {
-    alert(`Remove barcode: ${barcode}`);
+    try
+    {
+      const bcs: string[] = await localForage.getItem('barcodes') as string[];
+      const newBcs = bcs.filter((bc) => bc !== barcode);
+      localForage.setItem('barcodes', newBcs);
+      // setProds(newBcs);
+      React.setGlobal({
+        barcodes: newBcs,
+      });
+    }
+    catch (error)
+    {
+      alert('Error while deleting the item.');
+    }
   };
 
   return (

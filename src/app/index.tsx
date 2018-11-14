@@ -1,15 +1,20 @@
 import * as React from 'reactn';
 import * as ReactDOM from 'react-dom';
-import App from './components/App';
-
 import { BrowserRouter as Router } from 'react-router-dom';
+import * as localForage from 'localforage';
+import App from './components/App';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 declare let module: any;
 
+localForage.config({
+  name: 'PriceCheck',
+  storeName: 'PriceCheckDB',
+});
+
 React.setGlobal({
-  products: [],
+  barcodes: [],
 });
 
 ReactDOM.render(
