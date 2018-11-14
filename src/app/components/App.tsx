@@ -10,15 +10,11 @@ import SearchPage from './SearchPage/SearchPage';
 import ScanPage from './ScanPage/ScanPage';
 import NoMatch from './Other/NoMatch';
 
-class App extends React.Component<IProps, IState>
+class App extends React.Component<any, any>
 {
-  constructor(props: IProps)
+  constructor(props)
   {
     super(props);
-
-    this.state = {
-      products: [],
-    };
   }
 
   public render()
@@ -32,15 +28,13 @@ class App extends React.Component<IProps, IState>
             </Col>
           </Row>
           <Row className="d-flex justify-content-start mt-3 fill-flex">
-            {/* <Col> */}
-              <Switch>
-                <Route exact={true} path="/" component={MyListPage} />
-                <Route path="/search/:term" component={SearchPage} />
-                <Route path="/search" component={SearchPage} />
-                <Route path="/scan" component={ScanPage} />
-                <Route component={NoMatch} />
-              </Switch>
-            {/* </Col> */}
+            <Switch>
+              <Route exact={true} path="/" component={MyListPage} />
+              <Route path="/search/:term" component={SearchPage} />
+              <Route path="/search" component={SearchPage} />
+              <Route path="/scan" component={ScanPage} />
+              <Route component={NoMatch} />
+            </Switch>
           </Row>
         </Container>
       </div>
@@ -49,12 +43,3 @@ class App extends React.Component<IProps, IState>
 }
 
 export default App;
-
-interface IProps
-{
-  lista?: string[];
-}
-interface IState
-{
-  products: string[];
-}
