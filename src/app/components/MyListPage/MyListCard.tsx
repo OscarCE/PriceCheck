@@ -1,7 +1,6 @@
 import * as React from 'reactn';
 import { Card, CardBody, CardText, CardTitle, CardImg, Button } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
-import * as localForage from 'localforage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -15,7 +14,7 @@ const MyListCard = (props: IProps) =>
   const [removeBarcode, setRemoveBarcode] = React.useGlobal('removeBarcode');
 
   return (
-    <Card className="h-100">
+    <Card className="h-100 fit-height">
       <CardBody>
         <CardTitle className="card-product-title">
           {props.product && props.product.name}

@@ -14,7 +14,7 @@ const MyListLoadingCard = (props: IProps) =>
 {
   return (
     <Card className="h-100 card-icon">
-      <CardBody>
+      <CardBody className="h-100">
         <CardText className="h-100 text-secondary d-flex align-items-center justify-content-center">
           {
             props.state === 'loading' && <FontAwesomeIcon size="3x" icon={faSpinner} pulse={true} />

@@ -15,7 +15,7 @@ const ResultCard = ({ content }: IProps) =>
   const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
 
   return (
-    <Card className="h-100">
+    <Card className="h-100 fit-height">
       <CardBody>
         <CardTitle className="card-product-title">
           {content.name}

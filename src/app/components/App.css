@@ -80,3 +80,8 @@ html, body, #root {
 .icn-btn {
   align-self: center;
 }
+
+.fit-height {
+  min-height: min-content;
+  max-height: 430px;
+}
