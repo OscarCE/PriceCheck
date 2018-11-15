@@ -8,7 +8,7 @@ interface IState
 }
 class MyListPage extends React.Component<any, IState>
 {
-  constructor(props)
+  constructor(props: any)
   {
     super(props);
 
@@ -49,7 +49,7 @@ class MyListPage extends React.Component<any, IState>
     {
       // From the current barcode list, remove the selected item.
       const bcs: string[] = await localForage.getItem('barcodes') as string[];
-      const newBcs = bcs.filter((bc) => bc !== barcode);
+      const newBcs: string[] = bcs.filter((bc) => bc !== barcode);
 
       // Save the new list to the local db.
       localForage.setItem('barcodes', newBcs);

@@ -14,7 +14,7 @@ interface IState
 }
 class SearchPage extends React.Component<any, IState>
 {
-  constructor(props)
+  constructor(props: any)
   {
     super(props);
 

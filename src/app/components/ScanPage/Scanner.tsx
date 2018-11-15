@@ -8,9 +8,9 @@ interface IProps
 
 class Scanner extends React.Component<IProps, any>
 {
-  constructor(props, context)
+  constructor(props: IProps)
   {
-    super(props, context);
+    super(props);
 
     this._onDetected = this._onDetected.bind(this);
   }
@@ -35,7 +35,7 @@ class Scanner extends React.Component<IProps, any>
         readers: ['ean_reader'],
       },
       locate: true,
-    }, (err) =>
+    }, (err: Error) =>
       {
         if (err)
         {
@@ -60,7 +60,7 @@ class Scanner extends React.Component<IProps, any>
     );
   }
 
-  private _onDetected(result)
+  private _onDetected(result: any)
   {
     this.props.onDetected(result);
   }

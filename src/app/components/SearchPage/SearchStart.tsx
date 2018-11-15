@@ -3,7 +3,7 @@ import { Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
-const SearchStart = (props) =>
+const SearchStart = (props: any) =>
 {
   return (
     <Row className="fill-flex d-flex justify-content-center align-items-center lightgray">

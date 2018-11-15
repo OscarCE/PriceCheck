@@ -4,7 +4,7 @@ import { Row } from 'reactstrap';
 // tslint:disable-next-line:no-var-requires
 const DesertImg = require('./../../assets/images/desert.svg');
 
-const SearchNoMatch = (props) =>
+const SearchNoMatch = (props: any) =>
 {
   return (
     <div className="fill-flex d-flex flex-column justify-content-center align-items-center lightgray no-match">

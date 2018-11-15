@@ -12,7 +12,7 @@ import NoMatch from './Other/NoMatch';
 
 class App extends React.Component<any, any>
 {
-  constructor(props)
+  constructor(props: any)
   {
     super(props);
   }

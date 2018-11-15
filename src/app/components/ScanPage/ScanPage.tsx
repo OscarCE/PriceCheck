@@ -35,7 +35,7 @@ class ScanPage extends React.Component<any, IState> {
     }));
   }
 
-  private _onDetected(result)
+  private _onDetected(result: any)
   {
     this.setState((prevState) => ({
       results: prevState.results.concat([result]),
