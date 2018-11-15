@@ -23,9 +23,23 @@ class ScanPage extends React.Component<any, IState> {
   {
     return (
       <div>
-        <Scanner onDetected={this._onDetected} />
+        {this.state.scanning ? <Scanner onDetected={this._onDetected} /> : null}
       </div>
     );
+  }
+
+  public componentDidMount()
+  {
+    this.setState({
+      scanning: true,
+    });
+  }
+
+  public componentWillUnmount()
+  {
+    this.setState({
+      scanning: false,
+    });
   }
 
   private _scan()
