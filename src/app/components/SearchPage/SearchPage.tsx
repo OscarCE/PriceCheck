@@ -75,7 +75,7 @@ class SearchPage extends React.Component<any, IState>
       const resultados: ICard[] = await busqueda(term);
 
       // Chack items already added to our list.
-      const bcs: string[] = await localForage.getItem('barcodes') as string[];
+      const bcs: string[] = (await localForage.getItem('barcodes') as string[]) || [];
       resultados.forEach((item: ICard) =>
       {
         item.added = bcs.find((bc) => item.barcode === bc) && true;
