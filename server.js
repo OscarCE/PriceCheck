@@ -7,7 +7,7 @@ const webpackConfig = require('./webpack.dev.js');
 const compiler = webpack(webpackConfig);
 const fs = require('fs');
 const bodyParser = require('body-parser');
-const appPort = 3000;
+const appPort = process.env.PORT || 3000;
 const httpsOptions = {
   key: fs.readFileSync('./server/cert/localhost+3-key.pem'),
   cert: fs.readFileSync('./server/cert/localhost+3.pem'),
@@ -104,14 +104,14 @@ app.all('/api/type2/*', (req, res) => {
 // -------------------------------------------------------------------------
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
-app.use(
-  require('webpack-dev-middleware')(compiler, {
-    publicPath: webpackConfig.output.publicPath,
-    writeToDisk: true,
-    stats: { colors: true },
-  })
-);
-app.use(require('webpack-hot-middleware')(compiler));
+// app.use(
+//   require('webpack-dev-middleware')(compiler, {
+//     publicPath: webpackConfig.output.publicPath,
+//     writeToDisk: true,
+//     stats: { colors: true },
+//   })
+// );
+// app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist/index.html'), function (err) {
