@@ -64,15 +64,19 @@ html, body, #root {
 
 .btn-label {
   position: relative;
-  left: -12px;
   display: inline-block;
   padding: 6px 12px;
   background: rgba(0,0,0,0.15);
   border-radius: 3px 0 0 3px;
+  margin-right: 0.75rem;
 }
 
 .btn-labeled {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   padding-left: 0 !important;
+}
+
+.icn-btn {
+  align-self: center;
 }

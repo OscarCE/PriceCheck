@@ -20,7 +20,7 @@ const MyListCard = (props: IProps) =>
         <CardTitle className="card-product-title">
           {props.product && props.product.name}
         </CardTitle>
-        <CardImg className="p-3" src={props.product && props.product.imageUrl} />
+        <CardImg className="py-2" src={props.product && props.product.imageUrl} />
         <CardText className="card-content">
           Content: {props.product && props.product.size}
         </CardText>
@@ -45,7 +45,7 @@ const MyListCard = (props: IProps) =>
       </CardBody>
       <Button
         color="danger"
-        className="mx-3 mb-3 btn-labeled"
+        className="mx-3 mb-3 btn-labeled icn-btn"
         onClick={removeBarcode.bind(this, props.product.barcode)}
       >
         <span className="btn-label">

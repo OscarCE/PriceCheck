@@ -20,7 +20,7 @@ const ResultCard = ({ content }: IProps) =>
         <CardTitle className="card-product-title">
           {content.name}
         </CardTitle>
-        <CardImg src={content.imageUrl} />
+        <CardImg className="py-2" src={content.imageUrl} />
         <CardText className="card-content">
           Content: {content.size}
         </CardText>
@@ -46,7 +46,7 @@ const ResultCard = ({ content }: IProps) =>
       <Button
         color={content.added ? 'success' : 'secondary'}
         disabled={content.added}
-        className="mx-3 mb-3 btn-labeled"
+        className="mx-3 mb-3 btn-labeled icn-btn"
         onClick={addBarcode.bind(this, content.barcode)}
       >
         <span className="btn-label">
