@@ -4,14 +4,14 @@
   "description": "Price Checker",
   "main": "server.js",
   "scripts": {
-    "build": "webpack --config webpack.dev.js",
-    "build:prod": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js",
+    "build:dev": "webpack --config webpack.dev.js",
     "start": "webpack-dev-server --config webpack.dev.js"
   },
   "author": "Oscar",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
-    "@types/react": "^16.7.3",
+    "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.9",
     "@types/react-router-dom": "^4.3.1",
     "@types/reactstrap": "^6.4.2",
