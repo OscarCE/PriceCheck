@@ -1,8 +1,17 @@
 const path = require('path');
 const express = require('express');
+const webpack = require('webpack');
+const https = require('https');
 const axios = require('axios');
+const webpackConfig = require('./webpack.dev.js');
+const compiler = webpack(webpackConfig);
+const fs = require('fs');
 const bodyParser = require('body-parser');
 const appPort = process.env.PORT || 3000;
+const httpsOptions = {
+  key: fs.readFileSync('./server/cert/localhost+3-key.pem'),
+  cert: fs.readFileSync('./server/cert/localhost+3.pem'),
+};
 
 const app = express();
 app.use(bodyParser.json());
@@ -95,6 +104,14 @@ app.all('/api/type2/*', (req, res) => {
 // -------------------------------------------------------------------------
 
 app.use(express.static(path.resolve(__dirname, 'dist')));
+app.use(
+  require('webpack-dev-middleware')(compiler, {
+    publicPath: webpackConfig.output.publicPath,
+    writeToDisk: true,
+    stats: { colors: true },
+  })
+);
+app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('/*', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'dist/index.html'), function (err) {
@@ -106,6 +123,8 @@ app.get('/*', (req, res) => {
 
 // -------------------------------------------------------------------------
 
-app.listen(appPort, () => {
-  console.log(`App listening on ${appPort}`);
+const server = https.createServer(httpsOptions, app);
+server.listen(appPort, '0.0.0.0');
+server.on('listening', () => {
+  console.log(`App listening on ${server.address().port}`);
 });
