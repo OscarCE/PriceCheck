@@ -81,7 +81,12 @@ app.all('/api/type2/*', (req, res) => {
       res.end(error.message);
     });
   } else if (req.method === 'POST') {
-    axios.post(url, req.body)
+    axios.post(url, req.body, {
+      headers: {
+        'Content-Type': 'application/json',
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36'
+      }
+    })
       .then((response) => {
         res.setHeader("Content-Type", "application/json");
         res.end(JSON.stringify(response.data));

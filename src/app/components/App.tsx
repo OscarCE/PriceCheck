@@ -21,13 +21,13 @@ class App extends React.Component<any, any>
   {
     return (
       <div className="h-100">
-        <Container fluid={true} className="d-flex h-100 flex-column">
+        <Container fluid={true} className="d-flex h-100 flex-column min-content">
           <Row>
             <Col className="ui-navbar">
               <NavBar />
             </Col>
           </Row>
-          <Row className="d-flex justify-content-start mt-3 fill-flex">
+          <Row className="d-flex justify-content-start mt-3 fill-flex min-content">
             <Switch>
               <Route exact={true} path="/" component={MyListPage} />
               <Route path="/search/:term" component={SearchPage} />

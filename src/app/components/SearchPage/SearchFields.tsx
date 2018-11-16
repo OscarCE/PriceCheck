@@ -13,7 +13,7 @@ interface IProps
 const SearchFields = (props: IProps) =>
 {
   return (
-    <Row className="mb-3">
+    <Row className="mb-3 min-content">
       <Col>
         <Form onSubmit={props.searchAction}>
           <InputGroup>

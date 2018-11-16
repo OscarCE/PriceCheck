@@ -7,20 +7,17 @@ import MyListCard from './MyListCard';
 import * as ProductFn from './../../api/Search';
 import ICard from '../../interfaces/ICard';
 
-interface IProps
-{
+interface IProps {
   barcodeList: string[];
 }
 
-const MyListArea = (props: IProps) =>
-{
+const MyListArea = (props: IProps) => {
   return (
     <>
       {
-        ProductFn.barcodeListSearch(props.barcodeList).map((pp: Promise<ICard>) =>
-        {
+        ProductFn.barcodeListSearch(props.barcodeList).map((pp: Promise<ICard>) => {
           return (
-            <Col key={Math.random() * 1000} xs="6" sm="4" className="mb-3 px-2">
+            <Col key={Math.random() * 1000} xs="6" sm="4" md="3" lg="2" className="mb-3 px-2">
               <Async
                 promise={pp}
                 then={productCard}
@@ -37,20 +34,17 @@ const MyListArea = (props: IProps) =>
 
 export default MyListArea;
 
-const LoadingCard = () =>
-{
+const LoadingCard = () => {
   return (
     <CardIcon state="loading" />
   );
 };
-const ErrorCard = () =>
-{
+const ErrorCard = () => {
   return (
     <CardIcon state="error" />
   );
 };
-const productCard = (prod: ICard) =>
-{
+const productCard = (prod: ICard) => {
   return (
     <MyListCard product={prod} />
   );
