@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router';
 import { Container, Row, Col } from 'reactstrap';
 
 import './App.css';
-import NavBar from './UI/Navbar';
+import NavBar from './UI/NavBar';
 import MyListPage from './MyListPage/MyListPage';
 import SearchPage from './SearchPage/SearchPage';
 import ScanPage from './ScanPage/ScanPage';
