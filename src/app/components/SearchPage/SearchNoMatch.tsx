@@ -1,6 +1,5 @@
 import * as React from 'react';
 
-import { Row } from 'reactstrap';
 // tslint:disable-next-line:no-var-requires
 const DesertImg = require('./../../assets/images/desert.svg');
 

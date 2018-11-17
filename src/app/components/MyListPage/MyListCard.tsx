@@ -19,7 +19,7 @@ const MyListCard = (props: IProps) =>
         <CardTitle className="card-product-title">
           {props.product && props.product.name}
         </CardTitle>
-        <CardImg className="py-2" src={props.product && props.product.imageUrl} />
+        <CardImg className="d-block py-2 w-75 mx-auto" src={props.product && props.product.imageUrl} />
         <CardText className="card-content">
           Content: {props.product && props.product.size}
         </CardText>

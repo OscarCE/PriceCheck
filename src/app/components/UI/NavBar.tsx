@@ -1,14 +1,14 @@
 import * as React from 'react';
-import { Navbar, NavbarBrand, NavbarToggler, Nav, NavItem, NavLink, Collapse } from 'reactstrap';
+import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faBarcode, faList } from '@fortawesome/free-solid-svg-icons';
 
-interface IState
-{
+interface IState {
   open: boolean;
 }
 class NavBar extends React.Component<any, IState> {
-  constructor(props: any)
-  {
+  constructor(props: any) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
@@ -17,31 +17,31 @@ class NavBar extends React.Component<any, IState> {
     };
   }
 
-  public render()
-  {
+  public render() {
     return (
-      <Navbar color="dark" dark={true} expand="md">
-        <NavbarBrand href="/">PC</NavbarBrand>
-        <NavbarToggler onClick={this.toggle} color="light" />
-        <Collapse isOpen={this.state.open} navbar={true}>
-          <Nav className="ml-auto" navbar={true}>
+      <Navbar color="dark" dark={true} expand="xs" fixed="bottom">
+          <Nav navbar={true} className="flex-fill nav-justified">
             <NavItem>
-              <NavLink onClick={this.toggle} activeclassname="active" to="/search" tag={Link}>Search</NavLink>
+              <NavLink activeclassname="active" to="/scan" tag={Link}>
+                <FontAwesomeIcon icon={faBarcode} />
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink onClick={this.toggle} activeclassname="active" to="/scan" tag={Link}>Scan Barcode</NavLink>
+              <NavLink activeclassname="active" to="/search" tag={Link}>
+                <FontAwesomeIcon icon={faSearch} />
+              </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink onClick={this.toggle} activeclassname="active" to="/" tag={Link}>My List</NavLink>
+              <NavLink activeclassname="active" to="/" tag={Link}>
+                <FontAwesomeIcon icon={faList} />
+              </NavLink>
             </NavItem>
           </Nav>
-        </Collapse>
       </Navbar>
     );
   }
 
-  private toggle()
-  {
+  private toggle() {
     this.setState({
       open: !this.state.open,
     });

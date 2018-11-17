@@ -1,17 +1,14 @@
 import * as React from 'reactn';
 import { Card, CardBody, CardTitle, CardText, Button, CardImg } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
-import * as localForage from 'localforage';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 
-interface IProps
-{
+interface IProps {
   content: ICard;
 }
 
-const ResultCard = ({ content }: IProps) =>
-{
+const ResultCard = ({ content }: IProps) => {
   const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
 
   return (
@@ -20,14 +17,13 @@ const ResultCard = ({ content }: IProps) =>
         <CardTitle className="card-product-title">
           {content.name}
         </CardTitle>
-        <CardImg className="py-2" src={content.imageUrl} />
+        <CardImg className="d-block py-2 w-75 mx-auto" src={content.imageUrl} />
         <CardText className="card-content">
           Content: {content.size}
         </CardText>
         <CardText tag="div" className="card-price-list">
           {
-            content.prices.map((price: IPrice) =>
-            {
+            content.prices.map((price: IPrice) => {
               return (
                 <div key={price.id} className={'store-' + price.store.toLowerCase()}>
                   <span className="logo">{

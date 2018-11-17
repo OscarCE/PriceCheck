@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router';
 
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row } from 'reactstrap';
 
 import './App.css';
 import NavBar from './UI/NavBar';
@@ -12,22 +12,15 @@ import NoMatch from './Other/NoMatch';
 
 class App extends React.Component<any, any>
 {
-  constructor(props: any)
-  {
+  constructor(props: any) {
     super(props);
   }
 
-  public render()
-  {
+  public render() {
     return (
       <div className="h-100">
         <Container fluid={true} className="d-flex h-100 flex-column min-content">
-          <Row>
-            <Col className="ui-navbar">
-              <NavBar />
-            </Col>
-          </Row>
-          <Row className="d-flex justify-content-start mt-3 fill-flex min-content">
+          <Row className="d-flex justify-content-start mt-3 fill-flex min-content navbar-padding">
             <Switch>
               <Route exact={true} path="/" component={MyListPage} />
               <Route path="/search/:term" component={SearchPage} />
@@ -36,6 +29,7 @@ class App extends React.Component<any, any>
               <Route component={NoMatch} />
             </Switch>
           </Row>
+          <NavBar />
         </Container>
       </div>
     );
