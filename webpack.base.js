@@ -1,9 +1,34 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 
 const plugins = [
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, 'src', 'app', 'index.html')
+  }),
+  new WebpackPwaManifest({
+    name: 'Price Check',
+    short_name: 'Price Check',
+    description: 'Check the price before buying!',
+    background_color: '#ffffff',
+    ios: {
+      'apple-mobile-web-app-status-bar-style': 'black'
+    },
+    inject: true,
+    icons: [
+      {
+        src: path.resolve('./src/app/assets/icons/Icon.png'),
+        sizes: [120, 152, 167, 180, 1024],
+        destination: path.join('icons', 'ios'),
+        ios: true
+      },
+      {
+        src: path.resolve('./src/app/assets/icons/Icon.png'),
+        sizes: 1024,
+        destination: path.join('icons', 'ios'),
+        ios: 'startup'
+      }
+    ]
   })
 ];
 
