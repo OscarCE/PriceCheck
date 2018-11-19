@@ -47,7 +47,7 @@ async function getColes(url: string, retriesUsed: number = 0): Promise<string>
       throw error;
     } else
     {
-      return await getColes(url, retriesUsed++);
+      return await getColes(url, ++retriesUsed);
     }
   }
 }

@@ -1,9 +1,14 @@
 import * as path from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as WebpackPwaManifest from 'webpack-pwa-manifest';
+import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import * as CleanWebpackPlugin from 'clean-webpack-plugin';
+import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
+import * as OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import { Configuration } from 'webpack';
 
 const plugins = [
+  new CleanWebpackPlugin(['dist']),
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, 'src', 'app', 'index.html'),
   }),
@@ -31,6 +36,10 @@ const plugins = [
       },
     ],
   }),
+  new MiniCssExtractPlugin({
+    filename: '[name].css',
+    chunkFilename: '[id].css',
+  }),
 ];
 
 const baseWebpack = (options: Configuration): Configuration => ({
@@ -39,7 +48,16 @@ const baseWebpack = (options: Configuration): Configuration => ({
     app: [
       './src/app/index.tsx',
     ],
-    vendor: ['react', 'react-dom', 'react-router-dom'],
+    search: [
+      './src/app/components/SearchPage/SearchPage.tsx',
+    ],
+    scan: [
+      './src/app/components/ScanPage/ScanPage.tsx',
+    ],
+    list: [
+      './src/app/components/MyListPage/MyListPage.tsx',
+    ],
+    react: ['react', 'react-dom', 'react-router-dom', 'reactn', 'localforage', 'reactstrap'],
   },
   output: {
     filename: 'js/[name].bundle.js',
@@ -50,6 +68,14 @@ const baseWebpack = (options: Configuration): Configuration => ({
     splitChunks: {
       chunks: 'all',
     },
+    minimizer: [
+      new UglifyJsPlugin({
+        cache: true,
+        parallel: true,
+        sourceMap: true,
+      }),
+      new OptimizeCSSAssetsPlugin({}),
+    ],
   },
 
   // Enable sourcemaps for debugging webpack's output
@@ -78,7 +104,10 @@ const baseWebpack = (options: Configuration): Configuration => ({
 
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [
+          options.mode === 'development' ? 'style-loader' : MiniCssExtractPlugin.loader,
+          'css-loader',
+        ],
       },
 
       {

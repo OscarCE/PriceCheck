@@ -19,7 +19,7 @@ const httpsOptions = {
 };
 
 const userAgent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36';
-const colesRetries = 5;
+const colesRetries = 6;
 
 const app = express();
 app.use(bodyParser.json());
@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 
 async function getColes(url: string, retriesUsed: number = 0): Promise<string>
 {
-  console.log('getColes, retry:', retriesUsed);
+  console.log('getColes, intento:', retriesUsed);
   try
   {
     const resp = await axios.get(url, {
@@ -57,7 +57,8 @@ async function getColes(url: string, retriesUsed: number = 0): Promise<string>
       throw error;
     } else
     {
-      return await getColes(url, retriesUsed++);
+      console.log('reintentando...');
+      return await getColes(url, ++retriesUsed);
     }
   }
 }
