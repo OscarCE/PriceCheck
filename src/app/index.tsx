@@ -17,6 +17,7 @@ localForage.config({
 // Initialize the global state.
 React.setGlobal({
   addBarcode: undefined,
+  undoAddBarcode: undefined,
   removeBarcode: undefined,
 });
 

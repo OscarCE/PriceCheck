@@ -1,7 +1,7 @@
 import * as React from 'reactn';
 import ICard, { IPrice } from '../../interfaces/ICard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import Card from 'reactstrap/lib/Card';
 import CardBody from 'reactstrap/lib/CardBody';
 import CardTitle from 'reactstrap/lib/CardTitle';
@@ -9,12 +9,15 @@ import CardImg from 'reactstrap/lib/CardImg';
 import CardText from 'reactstrap/lib/CardText';
 import Button from 'reactstrap/lib/Button';
 
-interface IProps {
+interface IProps
+{
   content: ICard;
 }
 
-const ResultCard = ({ content }: IProps) => {
+const ResultCard = ({ content }: IProps) =>
+{
   const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
+  const [undoAddBarcode, setUndoAddBarcode] = React.useGlobal('undoAddBarcode');
 
   return (
     <Card className="h-100 fit-height">
@@ -28,7 +31,8 @@ const ResultCard = ({ content }: IProps) => {
         </CardText>
         <CardText tag="div" className="card-price-list">
           {
-            content.prices.map((price: IPrice) => {
+            content.prices.map((price: IPrice) =>
+            {
               return (
                 <div key={price.id} className={'store-' + price.store.toLowerCase()}>
                   <span className="logo">{
@@ -45,16 +49,15 @@ const ResultCard = ({ content }: IProps) => {
         </CardText>
       </CardBody>
       <Button
-        color={content.added ? 'success' : 'secondary'}
-        disabled={content.added}
+        color={content.added ? 'danger' : 'secondary'}
         className="mx-3 mb-3 btn-labeled icn-btn"
-        onClick={addBarcode.bind(this, content.barcode)}
+        onClick={content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)}
       >
         <span className="btn-label">
-          <FontAwesomeIcon icon={content.added ? faCheck : faPlus} />
+          <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />
         </span>
         {
-          content.added ? 'Added' : 'Add'
+          content.added ? 'Remove' : 'Add'
         }
       </Button>
     </Card>

@@ -6,7 +6,7 @@ import CardText from 'reactstrap/lib/CardText';
 import CardTitle from 'reactstrap/lib/CardTitle';
 import Button from 'reactstrap/lib/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 interface IProps
 {
@@ -15,6 +15,7 @@ interface IProps
 const ResultRow = ({ content }: IProps) =>
 {
   const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
+  const [undoAddBarcode, setUndoAddBarcode] = React.useGlobal('undoAddBarcode');
 
   return (
     <Card className="result-row flex-row justify-content-between p-2">
@@ -45,11 +46,10 @@ const ResultRow = ({ content }: IProps) =>
       </CardText>
       <div className="d-flex pl-2">
         <Button
-          color={content.added ? 'success' : 'secondary'}
-          disabled={content.added}
-          onClick={addBarcode.bind(this, content.barcode)}
+          color={content.added ? 'danger' : 'secondary'}
+          onClick={content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)}
         >
-          <FontAwesomeIcon icon={content.added ? faCheck : faPlus} />
+          <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />
         </Button>
       </div>
     </Card>

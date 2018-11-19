@@ -20,6 +20,8 @@ class SearchPage extends React.Component<any, IState>
 
     this.handleSearch = this.handleSearch.bind(this);
     this.addBarcode = this.addBarcode.bind(this);
+    this.undoAddBarcode = this.undoAddBarcode.bind(this);
+
     this.state = {
       searchTerm: '',
       searchResults: undefined,
@@ -28,6 +30,7 @@ class SearchPage extends React.Component<any, IState>
 
     this.setGlobal({
       addBarcode: this.addBarcode,
+      undoAddBarcode: this.undoAddBarcode,
     });
   }
 
@@ -133,6 +136,37 @@ class SearchPage extends React.Component<any, IState>
     catch (error)
     {
       alert('Error while adding the item.');
+    }
+  }
+
+  private async undoAddBarcode(newBarcode: string)
+  {
+    try
+    {
+      // Get all the items from the local db. If it is empty, assign an empty array.
+      let bcs: string[] = await localForage.getItem('barcodes') as string[];
+      bcs = bcs || [];
+
+      // Only add the item if it is not in the list already.
+      const filteredList = bcs.filter((oldBarcode) => oldBarcode !== newBarcode);
+      localForage.setItem('barcodes', filteredList);
+
+      const newResults = this.state.searchResults.map((item) =>
+      {
+        if (item.barcode === newBarcode)
+        {
+          item.added = false;
+        }
+        return item;
+      });
+
+      this.setState({
+        searchResults: newResults,
+      });
+    }
+    catch (error)
+    {
+      alert('Error while removing the item.');
     }
   }
 }
