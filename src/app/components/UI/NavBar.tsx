@@ -1,8 +1,11 @@
 import * as React from 'react';
-import { Navbar, Nav, NavItem, NavLink } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faBarcode, faThLarge } from '@fortawesome/free-solid-svg-icons';
+import Navbar from 'reactstrap/lib/Navbar';
+import Nav from 'reactstrap/lib/Nav';
+import NavItem from 'reactstrap/lib/NavItem';
+import NavLink from 'reactstrap/lib/NavLink';
 
 interface IState {
   open: boolean;
@@ -19,7 +22,7 @@ class NavBar extends React.Component<any, IState> {
 
   public render() {
     return (
-      <Navbar color="dark" dark={true} expand="xs" fixed="bottom">
+      <Navbar color="dark" dark={true} expand="xs" fixed="bottom" className="ui-navbar">
         <Nav navbar={true} className="flex-fill nav-justified">
           <NavItem>
             <NavLink activeclassname="active" to="/scan" tag={Link}>

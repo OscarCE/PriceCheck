@@ -1,8 +1,13 @@
 import * as React from 'reactn';
-import { Card, CardBody, CardText, CardTitle, CardImg, Button } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import Card from 'reactstrap/lib/Card';
+import CardBody from 'reactstrap/lib/CardBody';
+import CardTitle from 'reactstrap/lib/CardTitle';
+import CardImg from 'reactstrap/lib/CardImg';
+import CardText from 'reactstrap/lib/CardText';
+import Button from 'reactstrap/lib/Button';
 
 interface IProps
 {

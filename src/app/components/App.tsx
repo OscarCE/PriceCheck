@@ -1,22 +1,23 @@
 import * as React from 'react';
 import { Switch, Route } from 'react-router';
-
-import { Container, Row } from 'reactstrap';
-
 import './App.css';
 import NavBar from './UI/NavBar';
 import MyListPage from './MyListPage/MyListPage';
 import SearchPage from './SearchPage/SearchPage';
 import ScanPage from './ScanPage/ScanPage';
 import NoMatch from './Other/NoMatch';
+import Container from 'reactstrap/lib/Container';
+import Row from 'reactstrap/lib/Row';
 
 class App extends React.Component<any, any>
 {
-  constructor(props: any) {
+  constructor(props: any)
+  {
     super(props);
   }
 
-  public render() {
+  public render()
+  {
     return (
       <div className="h-100">
         <Container fluid={true} className="d-flex h-100 flex-column min-content">

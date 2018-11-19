@@ -1,10 +1,10 @@
 import * as React from 'reactn';
-import { Container } from 'reactstrap';
 import * as localForage from 'localforage';
 import ResultsArea from './ResultsArea';
 import ICard from '../../interfaces/ICard';
 import SearchFields from './SearchFields';
 import { busqueda } from '../../api/Search';
+import Container from 'reactstrap/lib/Container';
 
 interface IState
 {

@@ -1,8 +1,13 @@
 import * as React from 'reactn';
-import { Card, CardBody, CardTitle, CardText, Button, CardImg } from 'reactstrap';
 import ICard, { IPrice } from '../../interfaces/ICard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faCheck } from '@fortawesome/free-solid-svg-icons';
+import Card from 'reactstrap/lib/Card';
+import CardBody from 'reactstrap/lib/CardBody';
+import CardTitle from 'reactstrap/lib/CardTitle';
+import CardImg from 'reactstrap/lib/CardImg';
+import CardText from 'reactstrap/lib/CardText';
+import Button from 'reactstrap/lib/Button';
 
 interface IProps {
   content: ICard;
@@ -46,7 +51,7 @@ const ResultCard = ({ content }: IProps) => {
         onClick={addBarcode.bind(this, content.barcode)}
       >
         <span className="btn-label">
-          <FontAwesomeIcon icon={faCheck} />
+          <FontAwesomeIcon icon={content.added ? faCheck : faPlus} />
         </span>
         {
           content.added ? 'Added' : 'Add'

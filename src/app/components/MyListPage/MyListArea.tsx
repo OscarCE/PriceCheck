@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { Col } from 'reactstrap';
 import Async from 'react-promise';
 import CardIcon from './CardIcon';
 import MyListCard from './MyListCard';
 
 import * as ProductFn from './../../api/Search';
 import ICard from '../../interfaces/ICard';
+import Col from 'reactstrap/lib/Col';
 
 interface IProps {
   barcodeList: string[];

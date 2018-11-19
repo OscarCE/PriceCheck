@@ -57,7 +57,7 @@ const baseWebpack = (options: Configuration): Configuration => ({
     list: [
       './src/app/components/MyListPage/MyListPage.tsx',
     ],
-    react: ['react', 'react-dom', 'react-router-dom', 'reactn', 'localforage', 'reactstrap'],
+    react: ['react', 'react-dom', 'react-router-dom'],
   },
   output: {
     filename: 'js/[name].bundle.js',

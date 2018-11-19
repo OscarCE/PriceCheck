@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Row } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Row from 'reactstrap/lib/Row';
 
 const SearchStart = (props: any) =>
 {

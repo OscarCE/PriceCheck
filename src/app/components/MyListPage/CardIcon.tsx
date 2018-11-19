@@ -1,7 +1,9 @@
 import * as React from 'react';
-import { Card, CardBody, CardText, CardTitle } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import Card from 'reactstrap/lib/Card';
+import CardBody from 'reactstrap/lib/CardBody';
+import CardText from 'reactstrap/lib/CardText';
 // tslint:disable-next-line:no-var-requires
 const DeadFace = require('./../../assets/images/deadFace.svg');
 

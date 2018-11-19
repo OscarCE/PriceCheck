@@ -1,7 +1,13 @@
 import * as React from 'react';
-import { Row, Col, InputGroup, InputGroupAddon, Input, Button, Form } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Row from 'reactstrap/lib/Row';
+import Col from 'reactstrap/lib/Col';
+import Form from 'reactstrap/lib/Form';
+import InputGroup from 'reactstrap/lib/InputGroup';
+import Input from 'reactstrap/lib/Input';
+import InputGroupAddon from 'reactstrap/lib/InputGroupAddon';
+import Button from 'reactstrap/lib/Button';
 
 interface IProps
 {
@@ -19,9 +25,10 @@ const SearchFields = (props: IProps) =>
           <InputGroup>
             <Input
               id="searchField"
-              className="rounded border-bottom"
+              className="rounded form-control-sm"
               defaultValue={props.initialText || ''}
               placeholder="Enter a search term or barcode"
+              type="search"
             />
             <InputGroupAddon addonType="append">
               <Button

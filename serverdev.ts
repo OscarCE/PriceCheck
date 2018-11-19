@@ -57,15 +57,15 @@ async function getColes(url: string, retriesUsed: number = 0): Promise<string>
       throw error;
     } else
     {
-      console.log('reintentando...');
+      console.log('reintentando getColes...');
       return await getColes(url, ++retriesUsed);
     }
   }
 }
 
-async function getColesWithCookie(url: string, cookie: string): Promise<string>
+async function getColesWithCookie(url: string, cookie: string, retriesUsed: number = 0): Promise<string>
 {
-  console.log('getColesWithCookie');
+  console.log('getColesWithCookie, intento:', retriesUsed);
   try
   {
     const resp = await axios.get(url, {
@@ -85,7 +85,14 @@ async function getColesWithCookie(url: string, cookie: string): Promise<string>
   } catch (error)
   {
     console.trace('Error getColesWithCookie: ', error.message);
-    throw error;
+    if (retriesUsed >= colesRetries)
+    {
+      throw error;
+    } else
+    {
+      console.log('reintentando getColesWithCookie...');
+      return await getColesWithCookie(url, cookie, ++retriesUsed);
+    }
   }
 }
 
