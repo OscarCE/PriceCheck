@@ -1,12 +1,12 @@
-const webpack = require('webpack');
-const fs = require('fs');
-const path = require('path');
-
+import * as webpack from 'webpack';
+import * as fs from 'fs';
+import * as path from 'path';
+import baseWebpack from './webpack.base';
 const plugins = [
   new webpack.HotModuleReplacementPlugin(),
 ];
 
-module.exports = require('./webpack.base')({
+const devWebpack: webpack.Configuration = baseWebpack({
   mode: 'development',
   devServer: {
     hot: true,
@@ -20,8 +20,10 @@ module.exports = require('./webpack.base')({
     host: '0.0.0.0',
     overlay: {
       warnings: true,
-      errors: true
-    }
+      errors: true,
+    },
   },
-  plugins
+  plugins,
 });
+
+export default devWebpack;

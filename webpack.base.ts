@@ -1,10 +1,11 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
+import * as path from 'path';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import * as WebpackPwaManifest from 'webpack-pwa-manifest';
+import { Configuration } from 'webpack';
 
 const plugins = [
   new HtmlWebpackPlugin({
-    template: path.resolve(__dirname, 'src', 'app', 'index.html')
+    template: path.resolve(__dirname, 'src', 'app', 'index.html'),
   }),
   new WebpackPwaManifest({
     name: 'Price Check',
@@ -12,7 +13,7 @@ const plugins = [
     description: 'Check the price before buying!',
     background_color: '#ffffff',
     ios: {
-      'apple-mobile-web-app-status-bar-style': 'black'
+      'apple-mobile-web-app-status-bar-style': 'black',
     },
     inject: true,
     icons: [
@@ -20,38 +21,43 @@ const plugins = [
         src: path.resolve('./src/app/assets/icons/Icon.png'),
         sizes: [120, 152, 167, 180, 1024],
         destination: path.join('icons', 'ios'),
-        ios: true
+        ios: true,
       },
       {
         src: path.resolve('./src/app/assets/icons/Icon.png'),
-        sizes: 1024,
+        size: 1024,
         destination: path.join('icons', 'ios'),
-        ios: 'startup'
-      }
-    ]
-  })
+        ios: true,
+      },
+    ],
+  }),
 ];
 
-module.exports = options => ({
+const baseWebpack = (options: Configuration): Configuration => ({
   mode: options.mode,
   entry: {
     app: [
       './src/app/index.tsx',
     ],
-    vendor: ['react', 'react-dom']
+    vendor: ['react', 'react-dom', 'react-router-dom'],
   },
   output: {
-    filename: "js/[name].bundle.js",
+    filename: 'js/[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/'
+    publicPath: '/',
+  },
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+    },
   },
 
   // Enable sourcemaps for debugging webpack's output
-  devtool: "source-map",
+  devtool: 'source-map',
 
   resolve: {
     // Add '.ts' and '.tsx' as resolvable extensions.
-    extensions: [".ts", ".tsx", ".js"]
+    extensions: ['.ts', '.tsx', '.js'],
   },
 
   module: {
@@ -59,28 +65,30 @@ module.exports = options => ({
       // All files with a '.ts' or '.tsx' extension will be handled by 'ts-loader'
       {
         test: /\.tsx?$/,
-        loader: "ts-loader",
-        exclude: /node_modules/
+        loader: 'ts-loader',
+        exclude: /node_modules/,
       },
 
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.js$/,
-        loader: "source-map-loader"
+        loader: 'source-map-loader',
       },
 
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader']
+        use: ['style-loader', 'css-loader'],
       },
 
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
-      }
-    ]
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
+      },
+    ],
   },
   devServer: options.devServer,
-  plugins: plugins.concat(options.plugins)
+  plugins: plugins.concat(options.plugins),
 });
+
+export default baseWebpack;
