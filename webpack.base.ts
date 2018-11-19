@@ -48,34 +48,12 @@ const baseWebpack = (options: Configuration): Configuration => ({
     app: [
       './src/app/index.tsx',
     ],
-    search: [
-      './src/app/components/SearchPage/SearchPage.tsx',
-    ],
-    scan: [
-      './src/app/components/ScanPage/ScanPage.tsx',
-    ],
-    list: [
-      './src/app/components/MyListPage/MyListPage.tsx',
-    ],
     react: ['react', 'react-dom', 'react-router-dom'],
   },
   output: {
     filename: 'js/[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/',
-  },
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-    },
-    minimizer: [
-      new UglifyJsPlugin({
-        cache: true,
-        parallel: true,
-        sourceMap: true,
-      }),
-      new OptimizeCSSAssetsPlugin({}),
-    ],
   },
 
   // Enable sourcemaps for debugging webpack's output
