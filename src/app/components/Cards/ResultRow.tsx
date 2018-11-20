@@ -11,11 +11,13 @@ import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 interface IProps
 {
   content: ICard;
+  parent: 'search' | 'list';
 }
-const ResultRow = ({ content }: IProps) =>
+const ResultRow = ({ content, parent }: IProps) =>
 {
   const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
   const [undoAddBarcode, setUndoAddBarcode] = React.useGlobal('undoAddBarcode');
+  const [removeBarcode, setRemoveBarcode] = React.useGlobal('removeBarcode');
 
   return (
     <Card className="result-row flex-row justify-content-between p-2">
@@ -47,7 +49,10 @@ const ResultRow = ({ content }: IProps) =>
       <div className="d-flex pl-2">
         <Button
           color={content.added ? 'danger' : 'secondary'}
-          onClick={content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)}
+          onClick={
+            parent === 'list' ? removeBarcode.bind(this, content.barcode) :
+              content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)
+          }
         >
           <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />
         </Button>

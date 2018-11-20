@@ -12,12 +12,14 @@ import Button from 'reactstrap/lib/Button';
 interface IProps
 {
   content: ICard;
+  parent: 'search' | 'list';
 }
 
-const ResultCard = ({ content }: IProps) =>
+const ResultCard = ({ content, parent }: IProps) =>
 {
   const [addBarcode, setAddBarcode] = React.useGlobal('addBarcode');
   const [undoAddBarcode, setUndoAddBarcode] = React.useGlobal('undoAddBarcode');
+  const [removeBarcode, setRemoveBarcode] = React.useGlobal('removeBarcode');
 
   return (
     <Card className="h-100 fit-height">
@@ -51,7 +53,13 @@ const ResultCard = ({ content }: IProps) =>
       <Button
         color={content.added ? 'danger' : 'secondary'}
         className="mx-3 mb-3 btn-labeled icn-btn"
-        onClick={content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)}
+        onClick={
+          parent === 'list'
+            ? removeBarcode.bind(this, content.barcode)
+            : content.added
+              ? undoAddBarcode.bind(this, content.barcode)
+              : addBarcode.bind(this, content.barcode)
+        }
       >
         <span className="btn-label">
           <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />

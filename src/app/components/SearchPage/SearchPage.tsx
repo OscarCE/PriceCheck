@@ -46,7 +46,7 @@ class SearchPage extends React.Component<any, IState>
   public render()
   {
     return (
-      <Container fluid={true} className="fill-flex d-flex h-100 flex-column">
+      <Container fluid={true} className="fill-flex d-flex flex-column">
         <SearchFields
           searchAction={this.handleSearch}
           searching={this.state.searching}

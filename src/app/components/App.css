@@ -94,3 +94,9 @@ html, body, #root {
   max-height: 50px;
   width: auto;
 }
+
+.span-svg-100 > svg {
+  height: 1em;
+  width: 1em;
+  font-size: 10em;
+}

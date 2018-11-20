@@ -3,8 +3,6 @@ import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import * as WebpackPwaManifest from 'webpack-pwa-manifest';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as CleanWebpackPlugin from 'clean-webpack-plugin';
-import * as UglifyJsPlugin from 'uglifyjs-webpack-plugin';
-import * as OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
 import { Configuration } from 'webpack';
 
 const plugins = [
@@ -25,13 +23,7 @@ const plugins = [
       {
         src: path.resolve('./src/app/assets/icons/Icon.png'),
         sizes: [120, 152, 167, 180, 1024],
-        destination: path.join('icons', 'ios'),
-        ios: true,
-      },
-      {
-        src: path.resolve('./src/app/assets/icons/Icon.png'),
-        size: 1024,
-        destination: path.join('icons', 'ios'),
+        destination: path.join('assets', 'icons', 'ios'),
         ios: true,
       },
     ],
@@ -89,8 +81,11 @@ const baseWebpack = (options: Configuration): Configuration => ({
       },
 
       {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
+        test: /\.svg$/,
+        loader: 'file-loader',
+        options: {
+          outputPath: path.join('assets', 'images'),
+        },
       },
     ],
   },

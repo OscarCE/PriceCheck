@@ -6,26 +6,37 @@ import { Promise as Promis } from 'bluebird';
 
 const proxy = '/api/type2/';
 
-export const barcodeListSearch = (barcode: string[]): Array<Promise<ICard>> => {
-  return barcode.map(async (bc: string) => {
+export const barcodeListSearch = (barcode: string[]): Array<Promise<ICard>> =>
+{
+  if (barcode.length === 0) { return [] };
+
+  return barcode.map(async (bc: string) =>
+  {
     const results = await busqueda(bc);
-    if (results.length > 0) {
+    if (results.length > 0)
+    {
+      results[0].added = true;
       return results[0];
     }
   });
 };
-export const busqueda = async (term: string) => {
+export const busqueda = async (term: string) =>
+{
   const isBarcode = term.match(/\d+/gm) ? true : false;
 
   const resultadosW: ISearchResult[] = await buscaWoolworthsAsync(term, isBarcode);
   let resultadosC: ISearchResult[] = [];
-  if (isBarcode) {
+  if (isBarcode)
+  {
     resultadosC = await buscaColesAsync(term, isBarcode);
   }
-  else {
-    resultadosC = await Promis.map(resultadosW, async (item) => {
+  else
+  {
+    resultadosC = await Promis.map(resultadosW, async (item) =>
+    {
       const a = await buscaColesAsync((item).barcode, true);
-      if (a.length > 0 && a[0] !== undefined) {
+      if (a.length > 0 && a[0] !== undefined)
+      {
         return a[0];
       }
     });
@@ -33,27 +44,33 @@ export const busqueda = async (term: string) => {
 
   return await combinaResultados([resultadosW, resultadosC]);
 };
-const ordenaPreciosComparador = (a: IPrice, b: IPrice) => {
+const ordenaPreciosComparador = (a: IPrice, b: IPrice) =>
+{
   return a.price - b.price;
 };
-export const combinaResultados = (resultados: ISearchResult[][]) => {
+export const combinaResultados = (resultados: ISearchResult[][]) =>
+{
   if (resultados.length <= 0) { return; }
 
   const tarjetas: ICard[] = [];
 
-  let unArray = resultados.reduce((acc, item) => {
+  let unArray = resultados.reduce((acc, item) =>
+  {
     return acc.concat(item);
   });
 
-  while (unArray.length > 0) {
+  while (unArray.length > 0)
+  {
     const primerItem: ISearchResult = unArray.shift();
     if (!primerItem) { continue; }
 
-    const iguales = unArray.filter((item) => {
+    const iguales = unArray.filter((item) =>
+    {
       return item && item.barcode === primerItem.barcode;
     });
 
-    const diferentes = unArray.filter((item) => {
+    const diferentes = unArray.filter((item) =>
+    {
       return item && item.barcode !== primerItem.barcode;
     });
 
@@ -73,8 +90,10 @@ export const combinaResultados = (resultados: ISearchResult[][]) => {
       }],
     };
 
-    iguales.forEach((item) => {
-      if (item) {
+    iguales.forEach((item) =>
+    {
+      if (item)
+      {
         tarjeta.prices.push({
           id: item.origin + item.barcode,
           cupString: item.cupString,
@@ -90,8 +109,10 @@ export const combinaResultados = (resultados: ISearchResult[][]) => {
   }
   return tarjetas;
 };
-export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = false) => {
-  if (isBarcode && !term.match(/\d+/gm)) {
+export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = false) =>
+{
+  if (isBarcode && !term.match(/\d+/gm))
+  {
     throw new Error(`${term} is not a barcode`);
   }
 
@@ -105,7 +126,8 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
     Location: '/shop/search/products?searchTerm=' + term,
   };
 
-  try {
+  try
+  {
     const resultados = await fetch(queryUrl, {
       method: 'POST',
       headers: {
@@ -118,9 +140,12 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
     const products: ISearchResult[] = [];
 
     if (productsRaw.Products === null) { return products; }
-    productsRaw.Products.map((productOuter: IProductOuter) => {
-      productOuter.Products.map((productInner: IProductInner) => {
-        if (!isBarcode || productInner.Barcode === term) {
+    productsRaw.Products.map((productOuter: IProductOuter) =>
+    {
+      productOuter.Products.map((productInner: IProductInner) =>
+      {
+        if (!isBarcode || productInner.Barcode === term)
+        {
           const data: ISearchResult = {
             barcode: productInner.Barcode,
             hasCupString: productInner.HasCupPrice,
@@ -141,25 +166,30 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
 
     return products;
   }
-  catch (err) {
+  catch (err)
+  {
     throw new Error('buscaWoolworthsAsync: ' + err);
   }
 };
-export const buscaColesAsync = async (term: string, isBarcode: boolean = false) => {
-  if (isBarcode && !term.match(/\d+/gm)) {
+export const buscaColesAsync = async (term: string, isBarcode: boolean = false) =>
+{
+  if (isBarcode && !term.match(/\d+/gm))
+  {
     throw new Error(`${term} is not a barcode`);
   }
 
   const queryUrl = proxy +
     'https://shop.coles.com.au/search/resources/store/20501/productview/bySearchTerm/' + term;
 
-  try {
+  try
+  {
     const resultados = await fetch(queryUrl, {
       method: 'GET',
     });
 
     const productsRaw: IColesResult = await resultados.json();
-    const products = productsRaw.catalogEntryView.map((product: ICatalogEntryView) => {
+    const products = productsRaw.catalogEntryView.map((product: ICatalogEntryView) =>
+    {
       const data: ISearchResult = {
         barcode: isBarcode ? term : undefined,
         hasCupString: true,
@@ -178,7 +208,8 @@ export const buscaColesAsync = async (term: string, isBarcode: boolean = false) 
 
     return products;
   }
-  catch (err) {
+  catch (err)
+  {
     throw new Error('Error al buscar producto: ' + err);
   }
 };

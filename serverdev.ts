@@ -34,6 +34,23 @@ async function getColes(url: string, retriesUsed: number = 0): Promise<string>
     const resp = await axios.get(url, {
       headers: {
         'User-Agent': userAgent,
+        'Content-Type': 'application/json',
+      },
+      timeout: 1000,
+      transformRequest: (data, headers) =>
+      {
+        console.log('coles req');
+        console.log('datac', data);
+        console.log('headersc', headers);
+
+        return data;
+      },
+      transformResponse: (data) =>
+      {
+        console.log('coles resp');
+        console.log('datac', data);
+
+        return data;
       },
     });
 
@@ -70,8 +87,25 @@ async function getColesWithCookie(url: string, cookie: string, retriesUsed: numb
   {
     const resp = await axios.get(url, {
       headers: {
-        'Cookie': cookie,
+        cookie,
         'User-Agent': userAgent,
+        'Content-Type': 'application/json',
+      },
+      timeout: 1000,
+      transformRequest: (data, headers) =>
+      {
+        console.log('coleswithcookie req');
+        console.log('datawc', data);
+        console.log('headerswc', headers);
+
+        return data;
+      },
+      transformResponse: (data) =>
+      {
+        console.log('coleswithcookie resp');
+        console.log('datawc', data);
+
+        return data;
       },
     });
     const cookieTemp = getColesCookie(resp.data);
@@ -143,8 +177,8 @@ app.all('/api/type2/*', (req, res) =>
   {
     axios.post(url, req.body, {
       headers: {
-        'Content-Type': 'application/json',
         'User-Agent': userAgent,
+        'Content-Type': 'application/json',
       },
     }).then((response) =>
     {
@@ -160,6 +194,7 @@ app.all('/api/type2/*', (req, res) =>
     axios.get(url, {
       headers: {
         'User-Agent': userAgent,
+        'Content-Type': 'application/json',
       },
     }).then((response) =>
     {

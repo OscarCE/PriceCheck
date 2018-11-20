@@ -1,9 +1,7 @@
 import * as React from 'react';
-
-import SearchStart from './SearchStart';
-import SearchNoMatch from './SearchNoMatch';
 import ICard from '../../interfaces/ICard';
 import SearchResults from './SearchResults';
+import SearchEmptyScreen from '../Cards/SearchEmptyScreen';
 
 interface IProps
 {
@@ -15,13 +13,13 @@ const ResultsArea = ({ results }: IProps) =>
   if (results === undefined)
   {
     return (
-      <SearchStart />
+      <SearchEmptyScreen bg="start" />
     );
   }
   else if (results.length === 0)
   {
     return (
-      <SearchNoMatch />
+      <SearchEmptyScreen bg="no-results" />
     );
   }
   else

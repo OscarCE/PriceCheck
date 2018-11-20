@@ -1,7 +1,7 @@
 import * as React from 'react';
 import ICard from '../../interfaces/ICard';
-import ResultCard from './ResultCard';
-import ResultRow from './ResultRow';
+import ResultCard from '../Cards/ResultCard';
+import ResultRow from '../Cards/ResultRow';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
@@ -58,7 +58,9 @@ class SearchResults extends React.Component<IProps, IState>
                   className="mb-3 px-2"
                 >
                   {
-                    mode === 'card' ? <ResultCard content={result} /> : <ResultRow content={result} />
+                    mode === 'card'
+                      ? <ResultCard parent="search" content={result} />
+                      : <ResultRow parent="search" content={result} />
                   }
                 </Col>
               );
