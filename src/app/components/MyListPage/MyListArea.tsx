@@ -49,7 +49,7 @@ class MyListArea extends React.Component<IProps, IState>
         </Navbar>
         <Row noGutters={true} className="text-dark bg-light" >
           {
-            this.props.listProds && this.props.listProds.map((pp: Promise<ICard>) =>
+            this.props.listProds && this.props.listProds.map((pp: Promise<ICard>, index: number) =>
             {
               return (
                 <Col
