@@ -4,7 +4,6 @@ import * as localForage from 'localforage';
 import Container from 'reactstrap/lib/Container';
 import ICard from '../../interfaces/ICard';
 import * as ProductFn from './../../api/Search';
-import { array } from 'prop-types';
 
 interface IState
 {
@@ -62,6 +61,7 @@ class MyListPage extends React.Component<any, IState>
       // From the current barcode list, remove the selected item.
       const bcs: string[] = await localForage.getItem('barcodes') as string[];
       const newBcs: string[] = bcs.filter((bc) => bc !== barcode);
+      const arrayProds: Array<Promise<ICard>> = ProductFn.barcodeListSearch(newBcs);
 
       // Delete the item from the array of promises based on the index
       // and update the state.
@@ -81,6 +81,7 @@ class MyListPage extends React.Component<any, IState>
       localForage.setItem('barcodes', newBcs);
       this.setState({
         barcodes: newBcs,
+        listProds: arrayProds,
       });
     }
     catch (error)
