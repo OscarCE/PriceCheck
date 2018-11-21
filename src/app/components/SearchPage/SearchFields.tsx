@@ -21,11 +21,11 @@ const SearchFields = (props: IProps) =>
   return (
     <Row className="mb-3 min-content">
       <Col>
-        <Form onSubmit={props.searchAction}>
+        <Form action="." onSubmit={props.searchAction}>
           <InputGroup>
             <Input
               id="searchField"
-              className="rounded form-control-sm"
+              className="rounded"
               defaultValue={props.initialText || ''}
               placeholder="Enter a search term or barcode"
               type="search"
