@@ -4,7 +4,6 @@ import * as localForage from 'localforage';
 import Container from 'reactstrap/lib/Container';
 import ICard from '../../interfaces/ICard';
 import * as ProductFn from './../../api/Search';
-import { array } from 'prop-types';
 
 interface IState
 {

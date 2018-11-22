@@ -20,7 +20,7 @@ const ResultRow = ({ content, parent }: IProps) =>
   const [removeBarcode, setRemoveBarcode] = React.useGlobal('removeBarcode');
 
   return (
-    <Card className="result-row flex-row justify-content-between p-2">
+    <Card className="result-row flex-row justify-content-between p-2 h-100">
       <CardImg src={content.imageUrl} />
       <CardTitle className="card-product-title p-2 flex-fill">
         {content.name}

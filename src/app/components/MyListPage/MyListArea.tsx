@@ -8,7 +8,7 @@ import Navbar from 'reactstrap/lib/Navbar';
 import Nav from 'reactstrap/lib/Nav';
 import Button from 'reactstrap/lib/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faThList } from '@fortawesome/free-solid-svg-icons';
+import { faThList, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import Row from 'reactstrap/lib/Row';
 import ResultRow from '../Cards/ResultRow';
 
@@ -43,7 +43,7 @@ class MyListArea extends React.Component<IProps, IState>
         <Navbar color="light" className="justify-content-end">
           <Nav>
             <Button onClick={this.toggleMode}>
-              <FontAwesomeIcon icon={faThList} />
+              <FontAwesomeIcon icon={mode === 'card' ? faThList : faThLarge} />
             </Button>
           </Nav>
         </Navbar>
@@ -57,8 +57,8 @@ class MyListArea extends React.Component<IProps, IState>
                   xs={mode === 'card' ? 6 : 12}
                   sm={mode === 'card' ? 4 : 12}
                   md={mode === 'card' ? 3 : 12}
-                  lg={mode === 'card' ? 2 : 12}
-                  className="mb-3 px-2"
+                  lg={mode === 'card' ? 2 : 6}
+                  className="mb-3 px-2 mx-auto"
                 >
                   <Async
                     promise={pp}

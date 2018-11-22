@@ -5,7 +5,7 @@ import ResultRow from '../Cards/ResultRow';
 import Row from 'reactstrap/lib/Row';
 import Col from 'reactstrap/lib/Col';
 import Button from 'reactstrap/lib/Button';
-import { faThList } from '@fortawesome/free-solid-svg-icons';
+import { faThList, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Navbar from 'reactstrap/lib/Navbar';
 import Nav from 'reactstrap/lib/Nav';
@@ -40,7 +40,7 @@ class SearchResults extends React.Component<IProps, IState>
         <Navbar color="light" className="justify-content-end">
           <Nav>
             <Button onClick={this.toggleMode}>
-              <FontAwesomeIcon icon={faThList} />
+              <FontAwesomeIcon icon={mode === 'card' ? faThList : faThLarge} />
             </Button>
           </Nav>
         </Navbar>
@@ -52,10 +52,10 @@ class SearchResults extends React.Component<IProps, IState>
                 <Col
                   key={Math.random() * 1000}
                   xs={mode === 'card' ? 6 : 12}
-                  sm={mode === 'card' ? 4 : 12}
-                  md={mode === 'card' ? 3 : 12}
-                  lg={mode === 'card' ? 2 : 12}
-                  className="mb-3 px-2"
+                  sm={mode === 'card' ? 4 : 11}
+                  md={mode === 'card' ? 3 : 9}
+                  lg={mode === 'card' ? 2 : 6}
+                  className="mb-3 mx-auto px-2"
                 >
                   {
                     mode === 'card'
