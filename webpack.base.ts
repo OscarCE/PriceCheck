@@ -1,37 +1,26 @@
 import * as path from 'path';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
-import * as WebpackPwaManifest from 'webpack-pwa-manifest';
 import * as MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import * as CleanWebpackPlugin from 'clean-webpack-plugin';
+import * as CopyWebpackPlugin from 'copy-webpack-plugin';
 import { Configuration } from 'webpack';
 
 const plugins = [
-  new CleanWebpackPlugin(['dist']),
+  new CleanWebpackPlugin(['dist/**/*.*']),
   new HtmlWebpackPlugin({
     template: path.resolve(__dirname, 'src', 'app', 'index.html'),
-  }),
-  new WebpackPwaManifest({
-    name: 'Price Check',
-    short_name: 'Price Check',
-    description: 'Check the price before buying!',
-    background_color: '#ffffff',
-    ios: {
-      'apple-mobile-web-app-status-bar-style': 'black',
-    },
-    inject: true,
-    icons: [
-      {
-        src: path.resolve('./src/app/assets/icons/Icon.png'),
-        sizes: [120, 152, 167, 180, 1024],
-        destination: path.join('assets', 'icons', 'ios'),
-        ios: true,
-      },
-    ],
   }),
   new MiniCssExtractPlugin({
     filename: '[name].css',
     chunkFilename: '[id].css',
   }),
+  new CopyWebpackPlugin([
+    {
+      from: './src/app/assets/icons/*.*',
+      to: './',
+      flatten: true,
+    },
+  ]),
 ];
 
 const baseWebpack = (options: Configuration): Configuration => ({
