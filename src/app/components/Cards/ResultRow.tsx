@@ -28,12 +28,12 @@ const ResultRow = ({ content, parent }: IProps) =>
           Content: {content.size}
         </CardText>
       </CardTitle>
-      <CardText tag="div" className="card-price-list px-2">
+      <CardText tag="div" className="card-price-list px-2 d-flex flex-column justify-content-around">
         {
           content.prices.map((price: IPrice) =>
           {
             return (
-              <div key={price.id} className={'store-' + price.store.toLowerCase()}>
+              <div key={price.id} className={'store-' + price.store + (price.special ? ' special' : '')}>
                 <span className="logo">{
                   price && price.store.toUpperCase()
                 }</span> {

@@ -8,7 +8,7 @@ const proxy = '/api/type2/';
 
 export const barcodeListSearch = (barcode: string[]): Array<Promise<ICard>> =>
 {
-  if (barcode.length === 0) { return [] };
+  if (barcode.length === 0) { return []; }
 
   return barcode.map(async (bc: string) =>
   {
@@ -87,6 +87,7 @@ export const combinaResultados = (resultados: ISearchResult[][]) =>
         cupString: primerItem.cupString,
         price: primerItem.price,
         store: primerItem.origin,
+        special: primerItem.special,
       }],
     };
 
@@ -99,6 +100,7 @@ export const combinaResultados = (resultados: ISearchResult[][]) =>
           cupString: item.cupString,
           price: item.price,
           store: item.origin,
+          special: item.special,
         });
       }
     });
@@ -120,7 +122,7 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
     'https://www.woolworths.com.au/apis/ui/Search/products';
   const query = {
     SearchTerm: term,
-    PageSize: 6,
+    PageSize: 12,
     PageNumber: 1,
     SortType: 'TraderRelevance',
     Location: '/shop/search/products?searchTerm=' + term,
@@ -156,7 +158,7 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
             special: productInner.IsOnSpecial,
             savingsAmount: productInner.SavingsAmount,
             packageSize: productInner.PackageSize,
-            origin: 'W',
+            origin: 'w',
           };
 
           products.push(data);
@@ -200,7 +202,7 @@ export const buscaColesAsync = async (term: string, isBarcode: boolean = false) 
         special: product.t1 && product.t1.toUpperCase() === 'S',
         savingsAmount: product.p1.l4 && (Number(product.p1.l4) - Number(product.p1.o)),
         packageSize: product.a.O3[0].toLowerCase(),
-        origin: 'C',
+        origin: 'c',
       };
 
       return data;

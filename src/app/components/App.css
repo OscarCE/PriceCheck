@@ -19,10 +19,14 @@ html, body, #root {
   flex: 1;
 }
 
-.store-w .logo {
+.store-w, .store-c {
+  padding: 1px 3px 1px;
+  margin: 0px 0px 3px;
+}
+
+.store-w .logo, .store-c .logo {
   color: white;
   font-weight: bold;
-  background: green;
   border-radius: 10px;
   display: inline-flex;
   width: 17px;
@@ -30,15 +34,29 @@ html, body, #root {
   justify-content: center;
 }
 
+.store-w .logo {
+  background: green;
+}
+
 .store-c .logo {
-  color: white;
-  font-weight: bold;
   background: red;
-  border-radius: 10px;
-  display: inline-flex;
-  width: 17px;
-  height: 17px;
+}
+
+.store-w.special, .store-c.special {
+  border: 2px solid yellowgreen;
+  background: #eee;
+  border-radius: 6px;
+}
+
+.store-w.special::before, .store-c.special::before {
+  background: red;
+  content: 'Sale';
+  color: white;
+  padding: 0px 4px;
+  border-radius: 6px;
   justify-content: center;
+  float: left;
+  margin: 0 3px 0 0;
 }
 
 .card-price-list {

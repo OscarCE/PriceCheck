@@ -40,7 +40,7 @@ const baseWebpack = (options: Configuration): Configuration => ({
     app: [
       './src/app/index.tsx',
     ],
-    react: ['react', 'react-dom', 'react-router-dom'],
+    react: ['react', 'react-dom', 'react-router', 'react-router-dom'],
   },
   output: {
     filename: 'js/[name].bundle.js',

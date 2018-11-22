@@ -12,4 +12,5 @@ export interface IPrice {
   price: number;
   cupString: string;
   store: string;
+  special: boolean;
 }

@@ -36,7 +36,7 @@ const ResultCard = ({ content, parent }: IProps) =>
             content.prices.map((price: IPrice) =>
             {
               return (
-                <div key={price.id} className={'store-' + price.store.toLowerCase()}>
+                <div key={price.id} className={'store-' + price.store + (price.special ? ' special' : '')}>
                   <span className="logo">{
                     price && price.store.toUpperCase()
                   }</span> {
