@@ -88,6 +88,12 @@ html, body, #root {
 
 .card-product-title {
   font-size: 0.9rem;
+  height: 2rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
 }
 
 .card-icon .icon {
