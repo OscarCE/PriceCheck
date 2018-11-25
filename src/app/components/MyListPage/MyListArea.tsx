@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faThList, faThLarge } from '@fortawesome/free-solid-svg-icons';
 import Row from 'reactstrap/lib/Row';
 import ResultRow from '../Cards/ResultRow';
+import ScreenBg from '../Cards/ScreenBg';
 
 interface IProps
 {
@@ -40,35 +41,41 @@ class MyListArea extends React.Component<IProps, IState>
 
     return (
       <>
-        <Navbar color="light" className="justify-content-end">
-          <Nav>
-            <Button onClick={this.toggleMode}>
-              <FontAwesomeIcon icon={mode === 'card' ? faThList : faThLarge} />
-            </Button>
-          </Nav>
-        </Navbar>
-        <Row noGutters={true} className="text-dark bg-light" >
+        {
+          this.props.listProds.length > 0
+            ? <Navbar color="light" className="justify-content-end">
+              <Nav>
+                <Button onClick={this.toggleMode}>
+                  <FontAwesomeIcon icon={mode === 'card' ? faThList : faThLarge} />
+                </Button>
+              </Nav>
+            </Navbar>
+            : ''
+        }
+        <Row noGutters={true} className="text-dark bg-light h-100" >
           {
-            this.props.listProds && this.props.listProds.map((pp: Promise<ICard>, index: number) =>
-            {
-              return (
-                <Col
-                  key={Math.random() * 1000}
-                  xs={mode === 'card' ? 6 : 12}
-                  sm={mode === 'card' ? 4 : 12}
-                  md={mode === 'card' ? 3 : 12}
-                  lg={mode === 'card' ? 2 : 6}
-                  className="mb-3 px-2 mx-auto"
-                >
-                  <Async
-                    promise={pp}
-                    then={mode === 'card' ? productCard : productRow}
-                    catch={ErrorCard}
-                    pending={LoadingCard}
-                  />
-                </Col>
-              );
-            })
+            this.props.listProds.length === 0
+              ? <ScreenBg bg="emptyList" />
+              : this.props.listProds.map((pp: Promise<ICard>, index: number) =>
+              {
+                return (
+                  <Col
+                    key={Math.random() * 1000}
+                    xs={mode === 'card' ? 6 : 12}
+                    sm={mode === 'card' ? 4 : 12}
+                    md={mode === 'card' ? 3 : 12}
+                    lg={mode === 'card' ? 2 : 6}
+                    className="mb-3 px-2 mx-auto"
+                  >
+                    <Async
+                      promise={pp}
+                      then={mode === 'card' ? productCard : productRow}
+                      catch={ErrorCard}
+                      pending={LoadingCard}
+                    />
+                  </Col>
+                );
+              })
           }
         </Row>
       </>

@@ -36,14 +36,27 @@ const ResultCard = ({ content, parent }: IProps) =>
             content.prices.map((price: IPrice) =>
             {
               return (
-                <div key={price.id} className={'store-' + price.store + (price.special ? ' special' : '')}>
-                  <span className="logo">{
-                    price && price.store.toUpperCase()
-                  }</span> {
-                    price.price ? price.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }) : 'N/A'
-                  } {
-                    price.cupString && `(${price.cupString})`
-                  }
+                <div key={price.id} className={'store ' + price.store + (price.special ? ' special' : '')}>
+                  <div className="prices-container">
+                    <span className="logo">
+                      {
+                        price && price.store.toUpperCase()
+                      }
+                    </span>
+                    <span className="price">
+                      {
+                        price.price
+                          ? price.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
+                          : 'N/A'
+                      }
+                    </span> {
+                      ' '
+                    } <span className="cupstring">
+                      {
+                        price.cupString && `${price.cupString}`
+                      }
+                    </span>
+                  </div>
                 </div>
               );
             })
@@ -52,7 +65,7 @@ const ResultCard = ({ content, parent }: IProps) =>
       </CardBody>
       <Button
         color={content.added ? 'danger' : 'secondary'}
-        className="mx-3 mb-3 btn-labeled icn-btn"
+        className="d-flex mx-3 w-100 btn-labeled icn-btn"
         onClick={
           parent === 'list'
             ? removeBarcode.bind(this, content.barcode)
@@ -61,12 +74,14 @@ const ResultCard = ({ content, parent }: IProps) =>
               : addBarcode.bind(this, content.barcode)
         }
       >
-        <span className="btn-label">
+        <span className="btn-icon">
           <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />
         </span>
-        {
-          content.added ? 'Remove' : 'Add'
-        }
+        <span className="btn-label">
+          {
+            content.added ? 'Remove' : 'Add'
+          }
+        </span>
       </Button>
     </Card>
   );

@@ -19,7 +19,7 @@ class MyListPage extends React.Component<any, IState>
     this.removeBarcode = this.removeBarcode.bind(this);
     this.state = {
       barcodes: [],
-      listProds: undefined,
+      listProds: [],
     };
 
     this.setGlobal({
@@ -61,20 +61,6 @@ class MyListPage extends React.Component<any, IState>
       // From the current barcode list, remove the selected item.
       const bcs: string[] = await localForage.getItem('barcodes') as string[];
       const newBcs: string[] = bcs.filter((bc) => bc !== barcode);
-
-      // Delete the item from the array of promises based on the index
-      // and update the state.
-      this.state.listProds.map(async (item, ind, arr) =>
-      {
-        const it = await item;
-        if (it.barcode === barcode)
-        {
-          arr.splice(ind, 1);
-          this.setState({
-            listProds: arr,
-          });
-        }
-      });
 
       // Delete the item from the array of promises based on the index
       // and update the state.

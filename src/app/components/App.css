@@ -19,36 +19,54 @@ html, body, #root {
   flex: 1;
 }
 
-.store-w, .store-c {
+.store {
   padding: 1px 3px 1px;
   margin: 0px 0px 3px;
+  display: flex;
+  align-items: baseline;
+  overflow: scroll;
 }
 
-.store-w .logo, .store-c .logo {
+.store .logo {
   color: white;
   font-weight: bold;
   border-radius: 10px;
   display: inline-flex;
-  width: 17px;
+  min-width: 17px;
   height: 17px;
   justify-content: center;
+  margin: 0 2px 0 0;
 }
 
-.store-w .logo {
+.store.w .logo {
   background: green;
 }
 
-.store-c .logo {
+.store.c .logo {
   background: red;
 }
 
-.store-w.special, .store-c.special {
+.store .prices-container {
+  text-align: right;
+  flex: 1;
+  min-width: 1vh;
+}
+
+.store .cupstring {
+  color: gray;
+  font-size: smaller;
+  white-space: nowrap;
+  float: right;
+  display: contents;
+}
+
+.store.special {
   border: 2px solid yellowgreen;
   background: #eee;
   border-radius: 6px;
 }
 
-.store-w.special::before, .store-c.special::before {
+.store.special::before {
   background: red;
   content: 'Sale';
   color: white;
@@ -76,19 +94,23 @@ html, body, #root {
   width: 75%;
 }
 
-.btn-label {
-  position: relative;
-  display: inline-block;
+.btn-icon {
   padding: 6px 12px;
   background: rgba(0,0,0,0.15);
   border-radius: 3px 0 0 3px;
   margin-right: 0.75rem;
 }
 
+.btn-label {
+  flex: 1;
+  align-self: center;
+}
+
 .btn-labeled {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
   padding-left: 0 !important;
+  border-radius: 0 0 3px 3px !important;
 }
 
 .icn-btn {
@@ -111,6 +133,11 @@ html, body, #root {
 .result-row > img {
   max-height: 50px;
   width: auto;
+  margin: 0.5rem 0;
+}
+
+.result-row > button {
+  border-radius: 0 3px 3px 0;
 }
 
 .span-svg-100 > svg {

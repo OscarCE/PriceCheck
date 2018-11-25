@@ -20,43 +20,55 @@ const ResultRow = ({ content, parent }: IProps) =>
   const [removeBarcode, setRemoveBarcode] = React.useGlobal('removeBarcode');
 
   return (
-    <Card className="result-row flex-row justify-content-between p-2 h-100">
+    <Card className="result-row flex-row justify-content-between h-100">
       <CardImg src={content.imageUrl} />
-      <CardTitle className="card-product-title p-2 flex-fill">
+      <CardTitle className="card-product-title m-2 flex-fill">
         {content.name}
         <CardText className="card-content">
           Content: {content.size}
         </CardText>
       </CardTitle>
-      <CardText tag="div" className="card-price-list px-2 d-flex flex-column justify-content-around">
+      <CardText tag="div" className="card-price-list m-2 d-flex flex-column justify-content-around">
         {
           content.prices.map((price: IPrice) =>
           {
             return (
-              <div key={price.id} className={'store-' + price.store + (price.special ? ' special' : '')}>
-                <span className="logo">{
-                  price && price.store.toUpperCase()
-                }</span> {
-                  price.price ? price.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' }) : 'N/A'
-                } {
-                  price.cupString && `(${price.cupString})`
-                }
+              <div key={price.id} className={'store ' + price.store + (price.special ? ' special' : '')}>
+                <div className="prices-container">
+                  <span className="logo">
+                    {
+                      price && price.store.toUpperCase()
+                    }
+                  </span>
+                  <span className="price">
+                    {
+                      price.price
+                        ? price.price.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' })
+                        : 'N/A'
+                    }
+                  </span> {
+                    ' '
+                  } <span className="cupstring">
+                    {
+                      price.cupString && `${price.cupString}`
+                    }
+                  </span>
+                </div>
               </div>
             );
           })
         }
       </CardText>
-      <div className="d-flex pl-2">
-        <Button
-          color={content.added ? 'danger' : 'secondary'}
-          onClick={
-            parent === 'list' ? removeBarcode.bind(this, content.barcode) :
-              content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)
-          }
-        >
-          <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />
-        </Button>
-      </div>
+      <Button
+        className="ml-2"
+        color={content.added ? 'danger' : 'secondary'}
+        onClick={
+          parent === 'list' ? removeBarcode.bind(this, content.barcode) :
+            content.added ? undoAddBarcode.bind(this, content.barcode) : addBarcode.bind(this, content.barcode)
+        }
+      >
+        <FontAwesomeIcon icon={content.added ? faTrash : faPlus} />
+      </Button>
     </Card>
   );
 };

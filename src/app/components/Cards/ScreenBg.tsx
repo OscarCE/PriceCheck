@@ -8,9 +8,10 @@ const DesertImg = require('./../../assets/images/desert.svg');
 
 interface IProps
 {
-  bg: 'start' | 'no-results';
+  bg: 'initialSearch' | 'no-results' | 'emptyList';
 }
-const SearchEmptyScreen = ({ bg }: IProps) =>
+
+const ScreenBg = ({ bg }: IProps) =>
 {
   const noResults = (
     <>
@@ -19,21 +20,45 @@ const SearchEmptyScreen = ({ bg }: IProps) =>
       </div>
       <div className="note">
         No results found.
-    </div>
+      </div>
     </>
   );
 
-  const start = (
+  const initialSearch = (
     <FontAwesomeIcon size="10x" flip="horizontal" icon={faSearch} />
   );
+
+  const emptyList = (
+    <>
+      <div>
+        <SVG className="span-svg-100" src={DesertImg} />
+      </div>
+      <div className="note">
+        Your list is empty. Try adding some items.
+      </div>
+    </>
+  );
+
+  const bgScreen = (bgName: string) =>
+  {
+    switch (bgName)
+    {
+      case 'initialSearch':
+        return initialSearch;
+      case 'no-results':
+        return noResults;
+      case 'emptyList':
+        return emptyList;
+    }
+  };
 
   return (
     <div className="d-flex flex-column fill-flex justify-content-center align-items-center lightgray">
       {
-        bg === 'start' ? start : noResults
+        bgScreen(bg)
       }
     </div>
   );
 };
 
-export default SearchEmptyScreen;
+export default ScreenBg;
