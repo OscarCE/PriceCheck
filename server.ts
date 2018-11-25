@@ -22,42 +22,34 @@ app.use(bodyParser.json());
 app.all('/api/type2/*', (req, res) =>
 {
   // Check that theres something after the prefix
-  const matches = req.url.match(/\/api\/type2\/(.*$)/);
-  if (!matches || matches.length < 2)
+  // matches[0] = matched object
+  // matches[1] = host, 'c' or 'w'
+  // matches[2] = search term
+  const matches = req.url.match(/\/api\/type2\/(c|w)\/(.*$)/);
+  if (!matches || matches.length < 3)
   {
     return res.end('Error 1');
   }
 
-  // Check that the match is an URL.
-  let remoteUrl: url.UrlWithStringQuery;
-  try
-  {
-    remoteUrl = url.parse(decodeURI(matches[1]));
-  } catch (error)
+  // Only allowed hosts
+  if (config.validHosts.indexOf(matches[1]) === -1)
   {
     return res.end('Error 2');
   }
 
-  // No relative urls.
-  if (!remoteUrl.host)
+  let host: string;
+  switch (matches[1])
   {
-    return res.end('Error 3');
-  }
-
-  // Only https.
-  if (remoteUrl.protocol !== 'https:')
-  {
-    return res.end('Error 4');
-  }
-
-  // Only allowed hosts
-  if (config.validHosts.indexOf(remoteUrl.host) === -1)
-  {
-    return res.end('Error 5');
+    case 'w':
+      host = 'https://www.woolworths.com.au/apis/ui/Search/products';
+      break;
+    case 'c':
+      host = 'https://shop.coles.com.au/search/resources/store/20501/productview/bySearchTerm/' + matches[2];
+      break;
   }
 
   // Send the request.
-  request(remoteUrl.href, {
+  request(host, {
     headers: {
       'User-Agent': config.userAgent,
     },
@@ -70,7 +62,7 @@ app.all('/api/type2/*', (req, res) =>
     res.end(JSON.stringify(response));
   }).catch((error) =>
   {
-    res.end(error.message);
+    res.end('Error 3');
   });
 });
 
