@@ -52,7 +52,7 @@ class SearchPage extends React.Component<any, IState>
           searching={this.state.searching}
           initialText={this.props.match.params.term || ''}
         />
-        <ResultsArea results={this.state.searchResults} />
+        <ResultsArea searching={this.state.searching} results={this.state.searchResults} />
       </Container>
     );
   }

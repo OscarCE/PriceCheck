@@ -1,14 +1,14 @@
 import * as React from 'react';
 import SVG from 'react-inlinesvg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 // tslint:disable-next-line:no-var-requires
 const DesertImg = require('./../../assets/images/desert.svg');
 
 interface IProps
 {
-  bg: 'initialSearch' | 'no-results' | 'emptyList';
+  bg: 'initialSearch' | 'no-results' | 'emptyList' | 'searching';
 }
 
 const ScreenBg = ({ bg }: IProps) =>
@@ -26,6 +26,10 @@ const ScreenBg = ({ bg }: IProps) =>
 
   const initialSearch = (
     <FontAwesomeIcon size="10x" flip="horizontal" icon={faSearch} />
+  );
+
+  const searching = (
+    <FontAwesomeIcon size="10x" icon={faSpinner} pulse={true} />
   );
 
   const emptyList = (
@@ -49,6 +53,8 @@ const ScreenBg = ({ bg }: IProps) =>
         return noResults;
       case 'emptyList':
         return emptyList;
+      case 'searching':
+        return searching;
     }
   };
 

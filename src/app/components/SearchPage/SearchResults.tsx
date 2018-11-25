@@ -22,7 +22,7 @@ interface IState
 
 class SearchResults extends React.Component<IProps, IState>
 {
-  constructor(props)
+  constructor(props: IProps)
   {
     super(props);
 

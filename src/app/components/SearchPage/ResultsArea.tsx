@@ -5,28 +5,27 @@ import SearchEmptyScreen from '../Cards/ScreenBg';
 
 interface IProps
 {
+  searching: boolean;
   results: ICard[];
 }
 
-const ResultsArea = ({ results }: IProps) =>
+const ResultsArea = ({ results, searching }: IProps) =>
 {
-  if (results === undefined)
+  if (searching)
   {
-    return (
-      <SearchEmptyScreen bg="initialSearch" />
-    );
+    return <SearchEmptyScreen bg="searching" />;
+  }
+  else if (results === undefined)
+  {
+    return <SearchEmptyScreen bg="initialSearch" />;
   }
   else if (results.length === 0)
   {
-    return (
-      <SearchEmptyScreen bg="no-results" />
-    );
+    return <SearchEmptyScreen bg="no-results" />;
   }
   else
   {
-    return (
-      <SearchResults results={results} />
-    );
+    return <SearchResults results={results} />;
   }
 };
 
