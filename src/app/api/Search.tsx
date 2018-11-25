@@ -34,10 +34,13 @@ export const busqueda = async (term: string) =>
   {
     resultadosC = await Promis.map(resultadosW, async (item) =>
     {
-      const a = await buscaColesAsync((item).barcode, true);
-      if (a.length > 0 && a[0] !== undefined)
+      if (item.barcode !== null)
       {
-        return a[0];
+        const a = await buscaColesAsync((item).barcode, true);
+        if (a.length > 0 && a[0] !== undefined)
+        {
+          return a[0];
+        }
       }
     });
   }
@@ -149,7 +152,7 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
         if (!isBarcode || productInner.Barcode === term)
         {
           const data: ISearchResult = {
-            barcode: productInner.Barcode,
+            barcode: productInner.Barcode || Math.floor(Math.random() * 1000).toString(),
             hasCupString: productInner.HasCupPrice,
             cupString: productInner.CupString,
             image: productInner.MediumImageFile,
