@@ -119,7 +119,7 @@ export const buscaWoolworthsAsync = async (term: string, isBarcode: boolean = fa
   }
 
   const queryUrl = proxy +
-    'https://www.woolworths.com.au/apis/ui/Search/products';
+    'w/';
   const query = {
     SearchTerm: term,
     PageSize: 12,
@@ -181,7 +181,7 @@ export const buscaColesAsync = async (term: string, isBarcode: boolean = false) 
   }
 
   const queryUrl = proxy +
-    'https://shop.coles.com.au/search/resources/store/20501/productview/bySearchTerm/' + term;
+    'c/' + term;
 
   try
   {
