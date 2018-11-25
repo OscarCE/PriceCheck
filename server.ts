@@ -1,7 +1,6 @@
 import * as path from 'path';
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import * as url from 'url';
 import * as request from 'request-promise-native';
 
 const config = {

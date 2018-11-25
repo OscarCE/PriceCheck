@@ -9,7 +9,6 @@ import * as https from 'https';
 import * as fs from 'fs';
 import * as bodyParser from 'body-parser';
 import { AddressInfo } from 'net';
-import * as url from 'url';
 import webpackConfig from './webpack.dev';
 import * as request from 'request-promise-native';
 const compiler = webpack(webpackConfig);
