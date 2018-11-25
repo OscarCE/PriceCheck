@@ -5,13 +5,16 @@ import { faSearch, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
 // tslint:disable-next-line:no-var-requires
 const DesertImg = require('./../../assets/images/desert.svg');
+// tslint:disable-next-line:no-var-requires
+const DeadFace = require('./../../assets/images/deadFace.svg');
 
 interface IProps
 {
-  bg: 'initialSearch' | 'no-results' | 'emptyList' | 'searching';
+  bg: 'initialSearch' | 'no-results' | 'emptyList' | 'searching' | 'error';
+  msg?: string;
 }
 
-const ScreenBg = ({ bg }: IProps) =>
+const ScreenBg = ({ bg, msg }: IProps) =>
 {
   const noResults = (
     <>
@@ -43,6 +46,19 @@ const ScreenBg = ({ bg }: IProps) =>
     </>
   );
 
+  const error = (
+    <>
+      <div>
+        <SVG className="span-svg-100" src={DeadFace} />
+      </div>
+      <div className="note">
+        {
+          msg
+        }
+      </div>
+    </>
+  );
+
   const bgScreen = (bgName: string) =>
   {
     switch (bgName)
@@ -55,6 +71,8 @@ const ScreenBg = ({ bg }: IProps) =>
         return emptyList;
       case 'searching':
         return searching;
+      case 'error':
+        return error;
     }
   };
 

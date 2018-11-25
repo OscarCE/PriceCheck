@@ -5,15 +5,20 @@ import SearchEmptyScreen from '../Cards/ScreenBg';
 
 interface IProps
 {
+  error: string;
   searching: boolean;
   results: ICard[];
 }
 
-const ResultsArea = ({ results, searching }: IProps) =>
+const ResultsArea = ({ error, results, searching }: IProps) =>
 {
   if (searching)
   {
     return <SearchEmptyScreen bg="searching" />;
+  }
+  else if (error)
+  {
+    return <SearchEmptyScreen bg="error" msg={error} />;
   }
   else if (results === undefined)
   {

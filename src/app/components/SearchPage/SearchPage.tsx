@@ -11,6 +11,7 @@ interface IState
   searchTerm: string;
   searchResults: ICard[];
   searching: boolean;
+  error: string;
 }
 class SearchPage extends React.Component<any, IState>
 {
@@ -26,6 +27,7 @@ class SearchPage extends React.Component<any, IState>
       searchTerm: '',
       searchResults: undefined,
       searching: false,
+      error: undefined,
     };
 
     this.setGlobal({
@@ -52,7 +54,11 @@ class SearchPage extends React.Component<any, IState>
           searching={this.state.searching}
           initialText={this.props.match.params.term || ''}
         />
-        <ResultsArea searching={this.state.searching} results={this.state.searchResults} />
+        <ResultsArea
+          error={this.state.error}
+          searching={this.state.searching}
+          results={this.state.searchResults}
+        />
       </Container>
     );
   }
@@ -71,6 +77,7 @@ class SearchPage extends React.Component<any, IState>
   {
     this.setState({
       searching: true,
+      error: undefined,
     });
 
     try
@@ -88,12 +95,14 @@ class SearchPage extends React.Component<any, IState>
         searchTerm: term,
         searchResults: resultados,
         searching: false,
+        error: undefined,
       });
 
     } catch (err)
     {
       this.setState({
         searching: false,
+        error: 'An error ocurred while searching.',
       });
     }
   }
