@@ -67,7 +67,9 @@ class SearchPage extends React.Component<any, IState>
   {
     event.preventDefault();
 
-    const term: string = (document.querySelector('#searchField') as HTMLInputElement).value;
+    const searchField: HTMLInputElement = (document.querySelector('#searchField') as HTMLInputElement);
+    searchField.blur();
+    const term: string = searchField.value;
     this.props.history.push('/search/' + term);
 
     this.performSearchAsync(term);
