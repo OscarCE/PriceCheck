@@ -53,7 +53,7 @@ app.all('/api/type2/*', (req, res) =>
       'User-Agent': config.userAgent,
     },
     method: req.method,
-    body: req.body,
+    body: req.method === 'POST' ? req.body : undefined,
     json: true,
   }).then((response) =>
   {
