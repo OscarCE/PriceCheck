@@ -17,6 +17,9 @@ const httpsOptions = {
   cert: fs.readFileSync('./server/cert/localhost+3.pem'),
 };
 
+// new cookie jar
+const j = request.jar();
+
 const config = {
   appPort: Number(process.env.PORT) || 3000,
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36',
@@ -125,8 +128,6 @@ app.all('/api/type2/*', (req, res) =>
 	</Attributes>
 </devicefingerprint>`;
 
-  // new cookie jar
-  const j = request.jar();
   // Send the request.
   request(host, {
     headers: {
@@ -197,7 +198,7 @@ app.all('/api/type2/*', (req, res) =>
         else
         {
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify(response));
+          res.end(JSON.stringify(body));
         }
       }
     });

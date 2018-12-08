@@ -15,6 +15,9 @@ const config = {
   ],
 };
 
+// new cookie jar
+const j = request.jar();
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -114,8 +117,6 @@ app.all('/api/type2/*', (req, res) =>
 	</Attributes>
 </devicefingerprint>`;
 
-  // new cookie jar
-  const j = request.jar();
   // Send the request.
   request(host, {
     headers: {
