@@ -9,7 +9,8 @@
     "build": "webpack --config webpack.prod.ts",
     "build:dev": "webpack --config webpack.dev.ts",
     "start": "ts-node server.ts",
-    "start:dev": "ts-node serverdev.ts"
+    "start:dev": "ts-node serverdev.ts",
+    "start:forever": "forever start -c \"npm start\" ./ -o pcout.log -l pclog.log -e pcerr.log"
   },
   "author": "Oscar",
   "license": "MIT",
