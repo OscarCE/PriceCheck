@@ -187,7 +187,7 @@ app.all('/api/type2/*', (req, res) =>
         else
         {
           res.setHeader('Content-Type', 'application/json');
-          res.end(JSON.stringify(response));
+          res.end(JSON.stringify(body));
         }
       }
     });
